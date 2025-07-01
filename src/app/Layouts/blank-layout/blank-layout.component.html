@@ -1,0 +1,36 @@
+<div class="flex flex-col min-h-screen ">
+  <!-- Navbar -->
+  <header class="   px-6 bg-white/70 backdrop-blur-md shadow-md border-b  text-orange-800 font-semibold">
+    <app-navbar (toggle)="toggleSidebar()" ></app-navbar>
+  </header>
+
+
+  <div class="flex flex-1 overflow-hidden   ">
+    <!-- Sidebar -->
+    <!-- [ngClass]="{ ' block': sidebarOpen , 'hidden': !sidebarOpen }" -->
+    <aside class="w-[20%] pt-[20px] bg-black text-white  p-4 shadow-md border-r  hidden md:block "
+    >
+      <app-sidebar></app-sidebar>
+    </aside>
+
+        <!-- <aside class="pt-[20px] bg-black text-white p-4 shadow-md border-r transition-all duration-300 ease-in-out  md:block"
+      [ngClass]="{
+    'block absolute top-0 z-50 w-[60%] sm:w-[40%] h-screen': sidebarOpen,
+    'hidden': !sidebarOpen,
+    'right-0': lang === 'ar',
+    'left-0': lang !== 'ar'
+  }">
+      <app-sidebar></app-sidebar>
+    </aside> -->
+
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-y-auto pt-[40px] ">
+      <router-outlet></router-outlet>
+
+    </main>
+  </div>
+</div>
+
+
+<!-- <app-footer></app-footer> -->

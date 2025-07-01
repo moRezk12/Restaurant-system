@@ -1,0 +1,100 @@
+<div class="h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 flex items-center justify-center p-4 relative">
+
+  <div class="w-full relative z-10">
+
+    <!-- Login Card -->
+    <div class="bg-white w-full md:w-[60%]  overflow-auto scrollHidden mx-auto backdrop-blur-sm rounded-lg shadow-2xl p-6">
+      <h2 class=" text-[20px] md:text-[30px] font-bold text-center text-gray-800 mb-[20px]">
+        Welcome to Al Lulu Restaurant
+      </h2>
+
+      <form class="space-y-3">
+
+        <!-- Full Name Field -->
+        <div class="space-y-2">
+          <label class="text-[20px] font-medium text-gray-700 flex items-center gap-2">
+            <!-- <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4z" /></svg> -->
+            Full Name
+          </label>
+          <input type="text" placeholder="John Doe" required class="w-full h-12 border border-gray-200 rounded-lg px-4 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+        </div>
+        <!-- Email Field -->
+        <div class="space-y-2">
+          <label class="text-[20px] font-medium text-gray-700 flex items-center gap-2">
+            <!-- <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4z" /></svg> -->
+            Email
+          </label>
+          <input type="email" placeholder="admin@restaurant.com" required class="w-full h-12 border border-gray-200 rounded-lg px-4 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+        </div>
+
+        <!-- password -->
+        <div class="flex gap-3" >
+          <!-- Password Field -->
+          <div class="w-full space-y-2">
+            <label class="text-[20px] font-medium text-gray-700 flex items-center gap-2">
+
+              Password
+            </label>
+            <div class="relative">
+              <input [type]="showPassword ? 'text' : 'password'" placeholder="••••••••" required
+                class="relative w-full h-12 border border-gray-200 rounded-lg px-4 pr-12 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+              <i class="absolute top-1/2 transform -translate-y-1/2 text-gray-600 cursor-pointer" [ngClass]="[
+                showPassword ? 'fas fa-eye-slash' : 'fas fa-eye',
+                lang === 'ar' ? 'left-3' : 'right-3'
+              ]" (click)="togglePassword()"></i>
+            </div>
+          </div>
+          <!-- Confirm Password Field -->
+          <div class="w-full space-y-2">
+            <label class="text-[20px] font-medium text-gray-700 flex items-center gap-2">
+              Confirm Password
+            </label>
+            <div class="relative">
+              <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="••••••••" required
+                class="relative w-full h-12 border border-gray-200 rounded-lg px-4 pr-12 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+              <i class="absolute top-1/2 transform -translate-y-1/2 text-gray-600 cursor-pointer" [ngClass]="[
+                showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye',
+                lang === 'ar' ? 'left-3' : 'right-3'
+              ]" (click)="toggleConfirmPassword()"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Remember Me & Forgot Password -->
+        <div class="flex items-center justify-between">
+          <label class="flex items-center gap-2 text-[15px] text-gray-600 cursor-pointer">
+            <input type="checkbox" class="form-checkbox text-orange-500 border-gray-300 rounded" />
+              By signing up, you are agreeing to our Terms and Privacy Policy
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full h-12 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-200 transform hover:scale-[1.02]">
+          <span class="inline-flex items-center justify-center gap-2">
+            <!-- <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg> -->
+            Register
+          </span>
+        </button>
+      </form>
+
+      <div>
+        <p class="text-[15px] text-gray-600 mt-4">
+          Already have an Account?
+          <a routerLink="/login" class="text-orange-600 hover:text-orange-700 font-medium">
+            Login
+          </a>
+        </p>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+<!-- --color-primary: #10B981;     /* زر حفظ – تفعيل */
+--color-secondary: #F59E0B;   /* زر تنقل – تحذير */
+--color-accent: #EF4444;      /* خطأ – حذف */
+--color-bg: #F9FAFB;          /* خلفية رئيسية */
+--color-text: #1F2937;        /* نص أسود غامق */ -->

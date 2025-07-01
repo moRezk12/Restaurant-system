@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  /* bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 */
+  background: linear-gradient(to bottom, #f9f9f9, #f9f9f9);
+}
+
+

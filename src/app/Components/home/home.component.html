@@ -1,0 +1,68 @@
+<section>
+  <div class="flex justify-between items-center">
+    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800">
+      <i class="fas fa-home text-white bg-black rounded-md p-2 "></i>
+      Home
+    </h1>
+    <div class="flex justify-end">
+      <button
+        class="p-3  text-[15px] bg-blue-600 text-white hover:bg-blue-800 transition-all duration-200 rounded-[10px] ">
+        <i class="fas fa-crosshairs"></i>
+        تقيم الموقع
+      </button>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-[30px] ">
+    <div *ngFor="let item of grid"
+      class="bg-black text-white text-[20px] font-medium rounded-md p-4 flex justify-between items-center  ">
+      <div class="">
+        <h3>{{ item.name }}</h3>
+        <p> {{ item.value }} </p>
+      </div>
+      <div>
+        <div class="w-fit">
+          <i class="{{ item.icon }} bg-white text-black rounded-md p-2 "></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Last Branches Report -->
+  <div>
+    <div class="text-center mb-[20px] ">
+      <h4 class="text-[20px] md:text-[25px] font-bold text-gray-800">
+        آخر تقييمات الفروع
+      </h4>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let item of ratings" class="flex flex-col items-center p-6 rounded-xl shadow-lg bg-white">
+        <div class="relative w-32 h-32 rounded-full flex items-center justify-center" [ngClass]="{
+        'bg-red-100 text-red-600': item.percent < 50,
+        'bg-yellow-100 text-yellow-600': item.percent >= 50 && item.percent < 75,
+        'bg-green-100 text-green-600': item.percent >= 75
+      }">
+          <svg class="w-full h-full transform -rotate-90">
+            <circle class="text-gray-200" stroke-width="10" stroke="currentColor" fill="transparent" r="50" cx="64"
+              cy="64" />
+            <circle [ngClass]="{
+            'text-red-500': item.percent < 50,
+            'text-yellow-500': item.percent >= 50 && item.percent < 75,
+            'text-green-500': item.percent >= 75
+          }" stroke-width="10" [attr.stroke-dasharray]="circumference"
+              [attr.stroke-dashoffset]="circumference - (item.percent / 100) * circumference" stroke-linecap="round"
+              stroke="currentColor" fill="transparent" r="50" cx="64" cy="64" />
+          </svg>
+          <span class="absolute text-xl font-bold">{{ item.percent }}%</span>
+        </div>
+        <p class="mt-4 font-semibold text-gray-700">{{ item.label }}</p>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</section>
