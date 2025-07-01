@@ -26,7 +26,7 @@
   </div>
 
   <!-- 🔔 Notifications + 🌐 Language + 👤 User -->
-  <div class="flex items-center space-x-4 rtl:space-x-reverse">
+  <div class="flex flex-row-reverse md:flex-row items-center  rtl:space-x-reverse">
 
     <!-- 🌐 Language Dropdown -->
     <div class="relative" (click)="toggleLanguageDropdown()" tabindex="0">
@@ -48,7 +48,7 @@
     </div>
 
     <!-- 🔔 Notifications -->
-    <div class="relative" (click)="toggleNotificationDropdown($event)">
+    <div class="relative px-[15px] " (click)="toggleNotificationDropdown($event)">
       <button class="relative text-gray-600 hover:text-blue-600 focus:outline-none">
         <i class="fas fa-bell text-lg"></i>
         <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-1.5 rounded-full">3</span>
@@ -56,7 +56,7 @@
 
       <!-- Dropdown -->
       <div *ngIf="notifOpen"
-        [ngClass]="{ 'left-0': currentLang === 'ar' , 'right-0': currentLang === 'en' || currentLang === 'tr' }"
+        [ngClass]="{ '-right-[50px] md:left-0': currentLang === 'ar' , '-left-[50px] md:right-0': currentLang === 'en' || currentLang === 'tr' }"
         class="absolute  mt-2 w-72 bg-white shadow-xl border border-gray-100 rounded-lg z-50">
         <div class="px-4 py-3 border-b text-sm font-semibold text-gray-700 bg-gray-50 rounded-t-lg">
           الإشعارات
@@ -100,7 +100,11 @@
 </div>
 
 <div
-  class="absolute top-0  left-0 z-50 w-[75%] sm:w-[40%] h-screen  pt-[20px] bg-black text-white p-4 shadow-md border-r transition-all duration-300 ease-in-out"
-  [ngClass]="{ 'translate-x-[0%]': isSidebarOpen , '-translate-x-[100%]': !isSidebarOpen }">
+  class="absolute top-0 z-50 h-screen pt-[20px] bg-black text-white p-4 shadow-md border-r transition-all duration-300 ease-in-out w-[75%] sm:w-[40%]"
+  [ngClass]="currentLang === 'ar'
+    ? (isSidebarOpen ? 'right-0 translate-x-0' : 'right-0 translate-x-full')
+    : (isSidebarOpen ? 'left-0 translate-x-0' : 'left-0 -translate-x-full')">
+
   <app-sidebar (closeSidebar)="closeSidebar()"></app-sidebar>
 </div>
+
