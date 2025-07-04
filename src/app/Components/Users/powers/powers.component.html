@@ -1,1 +1,44 @@
-<p>powers works!</p>
+<section>
+  <div class="bg-white shadow-lg rounded-[10px] p-4">
+
+    <div class="flex justify-between items-center">
+      <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800">
+        <i class="fas fa-user-shield text-white bg-primary rounded-md p-2 "></i>
+        Powers
+      </h1>
+      <div class="flex justify-end">
+        <button routerLink="/createpowers"
+          class="p-3  text-[18px] bg-primary text-white hover:bg-blue-800 transition-all duration-200 rounded-[10px] ">
+          Add Power +
+        </button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto py-4">
+      <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+        <thead>
+          <tr class="bg-gray-900 text-gray-100 text-center">
+            <th class="py-3 px-4 border-b ">#</th>
+            <th class="py-3 px-4 border-b">Mission</th>
+            <th class="py-3 px-4 border-b">Powers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hover:bg-gray-100 text-red-500 p3 transition text-center whitespace-nowrap ">
+            <!-- <td class="py-3 px-4 border-b">1</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">mohamed&#64;gmail.com</td> -->
+
+            <td colspan="2" class="py-2 px-4 text-center " >
+              No data available
+            </td>
+
+          </tr>
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

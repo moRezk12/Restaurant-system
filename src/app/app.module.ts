@@ -15,7 +15,7 @@ import { RegisterComponent } from './Components/Auth/register/register.component
 import { ForgetpasswordComponent } from './Components/Auth/forgetpassword/forgetpassword.component';
 import { SidebarComponent } from './Layouts/sidebar/sidebar.component';
 import { BlankLayoutComponent } from './Layouts/blank-layout/blank-layout.component';
-import { TasksComponent } from './Components/tasks/tasks.component';
+import { TasksComponent } from './Components/task/tasks/tasks.component';
 import { AddUserComponent } from './Components/Users/add-user/add-user.component';
 import { PowersComponent } from './Components/Users/powers/powers.component';
 import { ReportComponent } from './Components/report/report.component';
@@ -30,6 +30,8 @@ import { QuestionScoreComponent } from './Components/Quetions/question-score/que
 import { ImportQuestionsComponent } from './Components/Quetions/import-questions/import-questions.component';
 import { SettingsComponent } from './Components/settings/settings.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { DetailsTaskComponent } from './Components/task/details-task/details-task.component';
+import { CreatePowersComponent } from './Components/Users/create-powers/create-powers.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -61,7 +63,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddQuestionComponent,
     QuestionScoreComponent,
     ImportQuestionsComponent,
-    SettingsComponent
+    SettingsComponent,
+    DetailsTaskComponent,
+    CreatePowersComponent
   ],
   imports: [
     BrowserModule,

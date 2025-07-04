@@ -6,7 +6,7 @@ import { LoginComponent } from './Components/Auth/login/login.component';
 import { BlankLayoutComponent } from './Layouts/blank-layout/blank-layout.component';
 import { RegisterComponent } from './Components/Auth/register/register.component';
 import { ForgetpasswordComponent } from './Components/Auth/forgetpassword/forgetpassword.component';
-import { TasksComponent } from './Components/tasks/tasks.component';
+import { TasksComponent } from './Components/task/tasks/tasks.component';
 import { AddUserComponent } from './Components/Users/add-user/add-user.component';
 import { ReportComponent } from './Components/report/report.component';
 import { ObjectionsComponent } from './Components/objections/objections.component';
@@ -20,6 +20,8 @@ import { QuestionScoreComponent } from './Components/Quetions/question-score/que
 import { ImportQuestionsComponent } from './Components/Quetions/import-questions/import-questions.component';
 import { SettingsComponent } from './Components/settings/settings.component';
 import { PowersComponent } from './Components/Users/powers/powers.component';
+import { DetailsTaskComponent } from './Components/task/details-task/details-task.component';
+import { CreatePowersComponent } from './Components/Users/create-powers/create-powers.component';
 
 const routes: Routes = [
 
@@ -36,8 +38,10 @@ const routes: Routes = [
       {path : '' , redirectTo: 'home', pathMatch: 'full'},
       {path: 'home', component: HomeComponent},
       {path: 'tasks', component: TasksComponent },
+      {path : 'detailsTask', component: DetailsTaskComponent },
       {path: 'add-user', component: AddUserComponent },
       {path: 'powers', component: PowersComponent },
+      {path: 'createpowers', component: CreatePowersComponent },
       {path: 'report', component: ReportComponent },
       {path: 'objections', component: ObjectionsComponent },
       {path: 'question-rating-reports', component: QuestionRatingReportsComponent },

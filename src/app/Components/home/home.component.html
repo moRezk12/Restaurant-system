@@ -1,14 +1,14 @@
 <section>
   <div class="flex justify-between items-center">
     <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800">
-      <i class="fas fa-home text-white bg-black rounded-md p-2 "></i>
+      <i class="fas fa-home text-white bg-primary rounded-md p-2 "></i>
       Home
     </h1>
     <div class="flex justify-end">
-      <button
-        class="p-3  text-[15px] bg-blue-600 text-white hover:bg-blue-800 transition-all duration-200 rounded-[10px] ">
+      <button (click)="openPopup()"
+        class="p-3  text-[18px] bg-primary text-white hover:bg-blue-800 transition-all duration-200 rounded-[10px] ">
+        Rate the site
         <i class="fas fa-crosshairs"></i>
-        تقيم الموقع
       </button>
     </div>
   </div>
@@ -16,14 +16,15 @@
   <!-- Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-[30px] ">
     <div *ngFor="let item of grid"
-      class="bg-black text-white text-[20px] font-medium rounded-md p-4 flex justify-between items-center  ">
+      class="text-black bg-white text-[20px] shadow-lg font-medium rounded-md p-4 flex justify-between items-center  ">
       <div class="">
         <h3>{{ item.name }}</h3>
         <p> {{ item.value }} </p>
       </div>
       <div>
         <div class="w-fit">
-          <i class="{{ item.icon }} bg-white text-black rounded-md p-2 "></i>
+          <i class="{{ item.icon }}  rounded-[10px]  p-3 "
+            [ngStyle]="{ 'color': item.color, 'background-color': item.bg }"></i>
         </div>
       </div>
     </div>
@@ -33,17 +34,17 @@
   <div>
     <div class="text-center mb-[20px] ">
       <h4 class="text-[20px] md:text-[25px] font-bold text-gray-800">
-        آخر تقييمات الفروع
+        Latest branch reviews
       </h4>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div *ngFor="let item of ratings" class="flex flex-col items-center p-6 rounded-xl shadow-lg bg-white">
         <div class="relative w-32 h-32 rounded-full flex items-center justify-center" [ngClass]="{
-        'bg-red-100 text-red-600': item.percent < 50,
-        'bg-yellow-100 text-yellow-600': item.percent >= 50 && item.percent < 75,
-        'bg-green-100 text-green-600': item.percent >= 75
-      }">
+            'bg-red-100 text-red-600': item.percent < 50,
+            'bg-yellow-100 text-yellow-600': item.percent >= 50 && item.percent < 75,
+            'bg-green-100 text-green-600': item.percent >= 75
+          }">
           <svg class="w-full h-full transform -rotate-90">
             <circle class="text-gray-200" stroke-width="10" stroke="currentColor" fill="transparent" r="50" cx="64"
               cy="64" />
@@ -64,5 +65,147 @@
 
   </div>
 
+  <!-- Table -->
+  <div class="overflow-x-auto py-4">
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+      <thead>
+        <tr class="bg-gray-900 text-gray-100 text-center">
+          <th class="py-3 px-4 border-b ">#</th>
+          <th class="py-3 px-4 border-b">The person present</th>
+          <th class="py-3 px-4 border-b">Location</th>
+          <th class="py-3 px-4 border-b">Rate</th>
+          <th class="py-3 px-4 border-b">Resident name </th>
+          <th class="py-3 px-4 border-b">Date</th>
+          <th class="py-3 px-4 border-b">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hover:bg-gray-50 transition text-center ">
+          <td class="py-3 px-4 border-b">1</td>
+          <td class="py-3 px-4 border-b">Mohamed</td>
+          <td class="py-3 px-4 border-b">Cook Door</td>
+          <td class="py-3 px-4 border-b">80%</td>
+          <td class="py-3 px-4 border-b">Mohamed</td>
+          <td class="py-3 px-4 border-b">2025-03-18 18:55:12</td>
+          <td class="py-3 px-4 border-b space-x-3">
+            <div class="flex items-center justify-center gap-3 " >
+              <button class="text-blue-500 hover:text-blue-700" title="View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <!-- <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+                <i class="fas fa-edit"></i>
+              </button> -->
+              <button class="text-red-500 hover:text-red-700" title="Delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+
+            </div>
+          </td>
+        </tr>
+        <tr class="hover:bg-gray-50 transition text-center ">
+          <td class="py-3 px-4 border-b">2</td>
+          <td class="py-3 px-4 border-b">Mohamed</td>
+          <td class="py-3 px-4 border-b">Cook Door</td>
+          <td class="py-3 px-4 border-b">80%</td>
+          <td class="py-3 px-4 border-b">Mohamed</td>
+          <td class="py-3 px-4 border-b">2025-03-18 18:55:12</td>
+          <td class="py-3 px-4 border-b space-x-3">
+            <div class="flex items-center justify-center gap-3 " >
+              <button class="text-blue-500 hover:text-blue-700" title="View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <!-- <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+                <i class="fas fa-edit"></i>
+              </button> -->
+              <button class="text-red-500 hover:text-red-700" title="Delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+
+            </div>
+          </td>
+        </tr>
+        <tr class="hover:bg-gray-50 transition text-center ">
+          <td class="py-3 px-4 border-b">3</td>
+          <td class="py-3 px-4 border-b">Mohamed</td>
+          <td class="py-3 px-4 border-b">Cook Door</td>
+          <td class="py-3 px-4 border-b">80%</td>
+          <td class="py-3 px-4 border-b">Mohamed</td>
+          <td class="py-3 px-4 border-b">2025-03-18 18:55:12</td>
+          <td class="py-3 px-4 border-b space-x-3">
+            <div class="flex items-center justify-center gap-3 " >
+              <button class="text-blue-500 hover:text-blue-700" title="View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <!-- <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+                <i class="fas fa-edit"></i>
+              </button> -->
+              <button class="text-red-500 hover:text-red-700" title="Delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+
+            </div>
+          </td>
+        </tr>
+
+
+
+      </tbody>
+    </table>
+  </div>
+
 
 </section>
+
+
+
+
+
+<!-- popup -->
+
+<div (click)="closePopup()" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500"
+  [ngClass]="{ 'opacity-100 pointer-events-auto  ': showPopup, 'opacity-0 pointer-events-none': !showPopup }">
+  <!-- الخلفية السوداء -->
+  <div class="absolute inset-0 bg-gray-900 transition-opacity duration-500"
+    [ngClass]="{ 'opacity-50': showPopup, 'opacity-0': !showPopup }"></div>
+
+  <!-- نافذة البوب أب -->
+  <div (click)="$event.stopPropagation()"
+    class="bg-white rounded-xl shadow-xl p-[20px] transform transition-all duration-500 ease-in-out"
+    [ngClass]="{ 'scale-100 opacity-100 w-[95%] md:w-[50%] ': showPopup, 'w-0 scale-95 opacity-0': !showPopup }">
+    <!-- رأس النافذة -->
+    <div class="relative mb-4">
+      <h3 class="text-xl font-semibold text-gray-800">Add New Rate</h3>
+      <i class="fas fa-times absolute top-0 right-0 bg-gray-300 px-2 py-1 text-gray-800 rounded-[10px] cursor-pointer text-lg"
+        (click)="closePopup()"></i>
+    </div>
+
+    <!-- النموذج -->
+    <form>
+      <div class="mb-4 space-y-2 ">
+        <label class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">The person present
+          :</label>
+        <input type="text"
+          class="w-full h-12 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none ">
+      </div>
+
+      <div class="mb-4 space-y-2 ">
+        <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">Locations :
+        </label>
+        <select
+          class="w-full h-12 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+          <option value="" disabled selected>Choose Location</option>
+          <option value="">Cook Door</option>
+          <option value="">Moods</option>
+        </select>
+      </div>
+      <button type="submit"
+        class="bg-primary text-white text-[16px] md:text-[20px]  py-2 px-4 rounded transition-all duration-300">
+        Save Changes
+      </button>
+      <button
+        class="mx-[12px] bg-gray-300 text-gray-800 text-[16px] md:text-[20px] py-2 px-4 rounded transition-all duration-300">
+        Close
+      </button>
+    </form>
+  </div>
+</div>
