@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/Core/Services/Language/language.service';
+// import * as intlTelInput from 'intl-tel-input';
+import intlTelInput from 'intl-tel-input';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +25,12 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    const inputElement : any = document.querySelector('#phone');
+    intlTelInput(inputElement, {
+      initialCountry: 'sa',
+      separateDialCode: true,
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    } as any)
   }
 
   togglePassword() {
@@ -33,5 +40,8 @@ export class RegisterComponent implements OnInit {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
+  // Code
+  countryCode: string = '+20';
+  mobileNumber: string = '';
 
 }
