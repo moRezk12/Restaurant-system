@@ -31,7 +31,7 @@ export class SidebarComponent {
     icon: 'fa-users',
     open: false,
     children: [
-      { name: 'Add User', icon: 'fa-user-plus', link: '/add-user' },
+      { name: 'List User', icon: 'fa-user-plus', link: '/list-user' },
       { name: 'Powers', icon: 'fa-user-shield', link: '/powers' }
     ]
   },
@@ -42,7 +42,7 @@ export class SidebarComponent {
   },
   {
     name: 'Objections',
-    icon: 'fa-exclamation-circle',
+    icon: 'fa-thumbs-down',
     link: '/objections'
   },
   {

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-ratings',
-  templateUrl: './ratings.component.html',
-  styleUrls: ['./ratings.component.css']
+  selector: 'app-sites',
+  templateUrl: './sites.component.html',
+  styleUrls: ['./sites.component.css']
 })
-export class RatingsComponent {
+export class SitesComponent {
 
-  // pagination
+    // pagination
 
   totalPages = 15;
   currentPage = 1;

@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-ratings',
-  templateUrl: './ratings.component.html',
-  styleUrls: ['./ratings.component.css']
+  selector: 'app-list-user',
+  templateUrl: './list-user.component.html',
+  styleUrls: ['./list-user.component.css']
 })
-export class RatingsComponent {
+export class AddUserComponent {
 
-  // pagination
+    grid = [
+    {name: 'users', value: 7 , icon : 'fas fa-users  ', bg: "#F0EBEB" , color: "#F97316"},
+    {name: 'Tasks', value: 7 , icon : 'fas fa-tasks  ', bg: "#3B82F633" , color: "#3B82F6"},
+    {name: 'Normal', value: 7 , icon : 'fas fa-circle  ', bg: "#22C55E33" , color: "#22C55E"},
+  ]
+
+    // pagination
 
   totalPages = 15;
   currentPage = 1;

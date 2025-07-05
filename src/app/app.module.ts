@@ -16,13 +16,13 @@ import { ForgetpasswordComponent } from './Components/Auth/forgetpassword/forget
 import { SidebarComponent } from './Layouts/sidebar/sidebar.component';
 import { BlankLayoutComponent } from './Layouts/blank-layout/blank-layout.component';
 import { TasksComponent } from './Components/task/tasks/tasks.component';
-import { AddUserComponent } from './Components/Users/add-user/add-user.component';
+import { AddUserComponent } from './Components/Users/list-user/list-user.component';
 import { PowersComponent } from './Components/Users/powers/powers.component';
 import { ReportComponent } from './Components/report/report.component';
 import { ObjectionsComponent } from './Components/objections/objections.component';
 import { QuestionRatingReportsComponent } from './Components/question-rating-reports/question-rating-reports.component';
 import { RatingsComponent } from './Components/ratings/ratings.component';
-import { SitesComponent } from './Components/sites/sites.component';
+import { SitesComponent } from './Components/Site/sites/sites.component';
 import { MainGroupComponent } from './Components/Groups/main-group/main-group.component';
 import { SubgroupComponent } from './Components/Groups/subgroup/subgroup.component';
 import { AddQuestionComponent } from './Components/Quetions/add-question/add-question.component';
@@ -32,6 +32,11 @@ import { SettingsComponent } from './Components/settings/settings.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { DetailsTaskComponent } from './Components/task/details-task/details-task.component';
 import { CreatePowersComponent } from './Components/Users/create-powers/create-powers.component';
+import { DetailsForonetaskComponent } from './Components/task/details-foronetask/details-foronetask.component';
+import { CreateUserComponent } from './Components/Users/create-user/create-user.component';
+import { CreateSiteComponent } from './Components/Site/create-site/create-site.component';
+import { CreateGroupComponent } from './Components/Groups/create-group/create-group.component';
+import { FormsModule } from '@angular/forms';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -65,11 +70,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     ImportQuestionsComponent,
     SettingsComponent,
     DetailsTaskComponent,
-    CreatePowersComponent
+    CreatePowersComponent,
+    DetailsForonetaskComponent,
+    CreateUserComponent,
+    CreateSiteComponent,
+    CreateGroupComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',

@@ -69,24 +69,33 @@
       <thead>
         <tr class="bg-gray-900 text-gray-100 text-center whitespace-nowrap">
           <th class="py-3 px-4 border-b ">#</th>
+          <th class="py-3 px-4 border-b ">Tasks</th>
           <th class="py-3 px-4 border-b">Date</th>
           <th class="py-3 px-4 border-b">Rate</th>
           <th class="py-3 px-4 border-b">Number of Questions </th>
         </tr>
       </thead>
       <tbody>
-        <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap">
-          <td class="py-3 px-4 border-b">1</td>
-          <td class="py-3 px-4 border-b">3 months ago</td>
-          <td class="py-3 px-4 border-b">80%</td>
-          <td class="py-3 px-4 border-b">5</td>
+        <tr *ngFor="let task of table" class="hover:bg-gray-50 transition text-center whitespace-nowrap">
+          <td class="py-3 px-4 border-b">
+            {{task.id}}
+          </td>
+          <td class="py-3 px-4 border-b">
+            <p class="hover:text-primary cursor-pointer " routerLink="{{task.link}}" >
+              {{task.task}}
+            </p>
+          </td>
+          <td class="py-3 px-4 border-b">
+            {{task.date}}
+          </td>
+          <td class="py-3 px-4 border-b">
+            {{task.rate}}
+          </td>
+          <td class="py-3 px-4 border-b">
+            {{task.numberOfQuations}}
+          </td>
         </tr>
-        <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap">
-          <td class="py-3 px-4 border-b">2</td>
-          <td class="py-3 px-4 border-b">5 months ago</td>
-          <td class="py-3 px-4 border-b">20%</td>
-          <td class="py-3 px-4 border-b">8</td>
-        </tr>
+
       </tbody>
     </table>
   </div>

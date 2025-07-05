@@ -32,4 +32,57 @@ export class HomeComponent {
     this.showPopup = false;
   }
 
+  // pagination
+
+  totalPages = 15;
+  currentPage = 1;
+
+  getDisplayedPages(): number[] {
+    const visiblePages = 5;
+    let start = Math.max(1, this.currentPage - Math.floor(visiblePages / 2));
+    let end = start + visiblePages - 1;
+
+    if (end > this.totalPages) {
+      end = this.totalPages;
+      start = Math.max(1, end - visiblePages + 1);
+    }
+
+    const pages = [];
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      // هنا حمّل البيانات حسب الصفحة مثلاً
+    }
+  }
+
+  percent = 30;
+  hovered: 'orange' | 'gray' | null = null;
+
+  tooltipX = 0;
+  tooltipY = 0;
+
+  updateTooltipPosition(event: MouseEvent) {
+    const rect = (event.target as SVGElement).getBoundingClientRect();
+    this.tooltipX = event.clientX - rect.left;
+    this.tooltipY = event.clientY - rect.top - 10; // فوق الموس بشوية
+  }
+
+  percentCook = 60;
+  hoveredCook: 'orange' | 'gray' | null = null;
+
+  tooltipXCook = 0;
+  tooltipYCook = 0;
+
+  updateTooltipPositionCook(event: MouseEvent) {
+    const rect = (event.target as SVGElement).getBoundingClientRect();
+    this.tooltipXCook = event.clientX - rect.left;
+    this.tooltipYCook = event.clientY - rect.top - 10; // فوق الموس بشوية
+  }
+
 }

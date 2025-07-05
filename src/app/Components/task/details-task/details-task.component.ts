@@ -19,4 +19,10 @@ export class DetailsTaskComponent {
     }
   ]
 
+  table = [
+    {id : 1 , link : '/detailsForonetask' , task : 'task 1' , date : '12/7/2022' , rate : '80%' , numberOfQuations : 2 },
+    {id : 2 , link : '/detailsForonetask' , task : 'task 2' , date : '12/3/2022' , rate : '30%' , numberOfQuations : 5 },
+    {id : 3 , link : '/detailsForonetask' , task : 'task 3' , date : '12/2/2022' , rate : '90%' , numberOfQuations : 8 },
+  ]
+
 }
