@@ -1,0 +1,203 @@
+<section>
+  <div class="flex justify-between items-center">
+    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800 ">
+      <i class="fas fa-map-marker-alt text-white bg-primary rounded-md p-2 "></i>
+      Sites
+    </h1>
+    <div class="flex justify-end">
+      <button routerLink="/create-site"
+        class="p-3  text-[18px] bg-primary text-white hover:bg-blue-800 transition-all duration-200 rounded-[10px] ">
+        Add Site +
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="text-black bg-white text-[20px] shadow-lg font-medium rounded-md p-4 flex justify-between items-center my-[30px] ">
+    <div class="">
+      <h3>Sites</h3>
+      <p> 5</p>
+    </div>
+    <div>
+      <div class="w-fit">
+        <i class="fas fa-map-marker-alt bg-[#F0EBEB] text-[#F97316] rounded-[10px]  p-3 "></i>
+      </div>
+    </div>
+  </div>
+
+  <div class=" bg-white shadow-lg rounded-[10px] p-4 ">
+
+    <div class="flex flex-col md:flex-row justify-between items-center gap-3 mb-[20px]">
+      <div class="w-full">
+        <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Country</label>
+        <select [(ngModel)]="selectedCountryCode" (change)="onCountryChange(selectedCountryCode)"
+          class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+          <option value="" disabled selected>Choose Country</option>
+          <option *ngFor="let country of countries" [value]="country.isoCode">
+            {{ country.name }}
+          </option>
+        </select>
+      </div>
+      <div class="w-full">
+        <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">City</label>
+        <select [(ngModel)]="selectedCity"
+          class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+          <option value="" disabled selected>Choose City</option>
+          <option *ngFor="let city of cities" [value]="city.name">
+            {{ city.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex flex-col-reverse sm:flex-row justify-between items-center gap-3 mb-[20px] ">
+      <div class="text-[15px] md:text-[18px] flex items-center gap-2 w-full ">
+        <p class=" ">
+          Show
+        </p>
+        <div class="border  border-gray-200 rounded-[10px] py-2">
+          <select name="" id="" class="outline-none px-[10px]">
+            <option value="">10</option>
+            <option value="">20</option>
+            <option value="">30</option>
+          </select>
+        </div>
+        <p>
+          Input
+        </p>
+      </div>
+      <div class="flex items-center justify-start gap-2 w-full ">
+        <p class=" text-[15px] md:text-[18px] ">
+          Search
+        </p>
+        <input type="text" placeholder="Search"
+          class="border border-gray-200 outline-none w-full rounded-[10px] px-4 py-2">
+      </div>
+    </div>
+
+    <hr class="my-[5px] bg-gray-300 w-full h-[2px]">
+    <!-- Table -->
+    <div class="overflow-x-auto py-4">
+      <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+        <thead>
+          <tr class="bg-gray-900 text-gray-100 text-center whitespace-nowrap">
+            <th class="py-3 px-4 border-b ">#</th>
+            <th class="py-3 px-4 border-b">Site Number</th>
+            <th class="py-3 px-4 border-b">Site Name </th>
+            <th class="py-3 px-4 border-b">Country</th>
+            <th class="py-3 px-4 border-b">City </th>
+            <th class="py-3 px-4 border-b">Site Phone</th>
+            <th class="py-3 px-4 border-b">Manager</th>
+            <!-- <th class="py-3 px-4 border-b">Procedure</th> -->
+            <th class="py-3 px-4 border-b">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap">
+            <td class="py-3 px-4 border-b">1</td>
+            <td class="py-3 px-4 border-b">2002</td>
+            <td class="py-3 px-4 border-b">Cook Door</td>
+            <td class="py-3 px-4 border-b">Egypt</td>
+            <td class="py-3 px-4 border-b">Cairo</td>
+            <td class="py-3 px-4 border-b">0123456789</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b space-x-3">
+              <div class="flex items-center justify-center gap-3 ">
+                <!-- <button class="text-blue-500 hover:text-blue-700" title="View">
+                  <i class="fas fa-eye"></i>
+                </button> -->
+                <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-red-500 hover:text-red-700" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap">
+            <td class="py-3 px-4 border-b">2</td>
+            <td class="py-3 px-4 border-b">2002</td>
+            <td class="py-3 px-4 border-b">Cook Door</td>
+            <td class="py-3 px-4 border-b">Egypt</td>
+            <td class="py-3 px-4 border-b">Cairo</td>
+            <td class="py-3 px-4 border-b">0123456789</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b space-x-3">
+              <div class="flex items-center justify-center gap-3 ">
+                <!-- <button class="text-blue-500 hover:text-blue-700" title="View">
+                  <i class="fas fa-eye"></i>
+                </button> -->
+                <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-red-500 hover:text-red-700" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap">
+            <td class="py-3 px-4 border-b">3</td>
+            <td class="py-3 px-4 border-b">2002</td>
+            <td class="py-3 px-4 border-b">Cook Door</td>
+            <td class="py-3 px-4 border-b">Egypt</td>
+            <td class="py-3 px-4 border-b">Cairo</td>
+            <td class="py-3 px-4 border-b">0123456789</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b space-x-3">
+              <div class="flex items-center justify-center gap-3 ">
+                <!-- <button class="text-blue-500 hover:text-blue-700" title="View">
+                  <i class="fas fa-eye"></i>
+                </button> -->
+                <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-red-500 hover:text-red-700" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- pagination -->
+    <div class="flex flex-col-reverse sm:flex-row gap-3 justify-between items-center space-x-1 mt-6">
+      <div class="flex justify-center items-center space-x-1">
+        <!-- Prev Button -->
+        <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+          class="px-3 py-1 rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100 disabled:opacity-50">
+          Prev
+        </button>
+
+        <!-- Dynamic Page Buttons -->
+        <ng-container *ngFor="let page of getDisplayedPages()">
+          <button (click)="goToPage(page)" [class.bg-blue-600]="currentPage === page"
+            [class.text-white]="currentPage === page"
+            class="px-3 py-1 rounded-md border border-gray-300 text-gray-600 hover:bg-blue-500 hover:text-white transition-colors duration-300">
+            {{ page }}
+          </button>
+        </ng-container>
+
+        <!-- Next Button -->
+        <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+          class="px-3 py-1 rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100 disabled:opacity-50">
+          Next
+        </button>
+      </div>
+
+      <div>
+        <p>
+          Page {{ currentPage }} of {{ totalPages }}
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</section>

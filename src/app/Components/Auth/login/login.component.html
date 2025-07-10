@@ -1,0 +1,104 @@
+<div class=" h-[100vh] flex items-center bg-gray-800 justify-between relative">
+
+
+
+  <div class=" w-full md:w-[70%] lg:w-[50%] h-full relative z-10 bg-white ">
+
+    <!-- Login Card -->
+    <div class=" w-[90%]  mx-auto p-6">
+      <div class="flex justify-center">
+        <img class=" w-[180px]  " src="assets/images/auth/logo.webp" alt="Logo Image">
+      </div>
+
+      <h2 class="text-[#374151] text-[18px] md:text-[18px] lg:text-[25px] leading-[30px] font-bold text-center mb-[8px]">
+        Welcome to Al Lulu Resturant
+      </h2>
+      <p class="text-center text-[16px] md:text-[20px] text-[#4B5563] mb-4">
+        Sign in to your account
+      </p>
+
+      <form class="space-y-3">
+        <!-- Email Field -->
+        <div class="space-y-2">
+          <label class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">
+            <!-- <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4z" /></svg> -->
+            Email
+          </label>
+          <input type="email" value="admin@restaurant.com" placeholder="admin@restaurant.com" required
+            class="w-full py-2 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none " />
+        </div>
+
+        <!-- Password Field -->
+        <div class="space-y-2">
+          <label class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">
+
+            Password
+          </label>
+          <div class="relative">
+            <input [type]="showPassword ? 'text' : 'password'" placeholder="••••••••" required value="12345678"
+              class="relative w-full py-2 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 pr-12 focus:outline-none " />
+            <i class="absolute top-1/2 transform -translate-y-1/2 text-gray-600 cursor-pointer" [ngClass]="[
+              showPassword ? 'fas fa-eye-slash' : 'fas fa-eye',
+              lang === 'ar' ? 'left-3' : 'right-3'
+            ]" (click)="togglePassword()"></i>
+          </div>
+
+        </div>
+
+        <!-- Remember Me & Forgot Password -->
+        <div class="flex items-center justify-between text-[15px] md:text-[12px] lg:text-[15px] ">
+          <label class="flex items-center gap-2  text-gray-600 cursor-pointer">
+            <input type="checkbox" class="form-checkbox text-orange-500 border-gray-300 rounded" />
+            Remember me
+          </label>
+          <a routerLink="/forgetpassword" class=" text-primary font-medium">
+            Forgot your password?
+          </a>
+        </div>
+
+        <!-- Submit Button -->
+        <button routerLink="/home"
+          class="w-full py-2 bg-primary text-white font-semibold rounded-lg shadow-lg transition-all duration-200 transform hover:scale-[1.02]">
+          <a class="inline-flex items-center justify-center gap-2">
+            <!-- <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg> -->
+            login
+          </a>
+        </button>
+      </form>
+
+      <div>
+        <p class="text-[15px] text-gray-600 mt-4">
+          Don't have an account?
+          <a routerLink="/register" class="text-primary font-medium">
+            Sign up
+          </a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+    <div class="w-full h-full content-center hidden md:block">
+    <div>
+      <div class="flex justify-center items-center rounded-[20px]  ">
+        <img loading="lazy" class="w-[90%] rounded-[20px] lg:w-[60%] h-[350px] hover:scale-[1.1] transition-all duration-200 ease-in-out " src="assets/images/auth/Screenshot 2025-07-04 190119.png" alt="">
+      </div>
+      <div class="text-white text-center my-[15px] " >
+        <p class="text-[18px] lg:text-[25px] font-bold text-primary ">
+          Creating an innovative system for restaurants
+        </p>
+        <p class="text-[15px] lg:text-[20px]" >
+          Specially designed to meet the needs of all restaurant owners, <br> helping you grow your business and manage your operations efficiently and easily.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- --color-primary: #10B981;     /* زر حفظ – تفعيل */
+--color-secondary: #F59E0B;   /* زر تنقل – تحذير */
+--color-accent: #EF4444;      /* خطأ – حذف */
+--color-bg: #F9FAFB;          /* خلفية رئيسية */
+--color-text: #1F2937;        /* نص أسود غامق */ -->

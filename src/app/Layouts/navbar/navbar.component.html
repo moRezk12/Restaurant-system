@@ -1,0 +1,113 @@
+<div
+  class="w-full flex  items-center justify-between py-[10px] space-x-4 rtl:space-x-reverse">
+
+  <!-- 🔍 Search -->
+  <!-- <div class="flex-1 max-w-xs">
+    <input
+      type="text"
+      placeholder="ابحث..."
+      class="w-full px-4 py-2 rounded-lg border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+  </div> -->
+
+  <div class="  ">
+    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800 hidden md:block ">
+      Welcome to Al Lulu Restaurant
+    </h1>
+    <!-- <i  (click)="openSidebar()" class="fas fa-bars text-[22px] md:text-[22px] font-bold text-gray-800 md:hidden cursor-pointer " ></i> -->
+    <i (click)="openSidebar()"
+      class="fas text-[22px]  md:text-[22px] font-bold text-gray-800 md:hidden cursor-pointer transition-transform duration-300 ease-in-out"
+      [ngClass]="{
+      'fa-times rotate-90 scale-110 text-red-600': isSidebarOpen,
+      'fa-bars rotate-0 scale-100 text-gray-800': !isSidebarOpen
+    }"></i>
+
+
+  </div>
+
+  <!-- 🔔 Notifications + 🌐 Language + 👤 User -->
+  <div class="flex flex-row-reverse md:flex-row items-center  rtl:space-x-reverse">
+
+    <!-- 🌐 Language Dropdown -->
+    <div class="relative" (click)="toggleLanguageDropdown()" tabindex="0">
+      <button
+        class="flex items-center gap-2 text-gray-600 bg-white border border-gray-200 rounded shadow px-1 hover:text-blue-600 focus:outline-none">
+        🌐
+        <span class="text-sm"> {{ currentLang.toUpperCase() }} </span>
+        <!-- <i class="fas fa-chevron-down text-xs"></i> -->
+      </button>
+
+      <div *ngIf="langOpen"
+      [ngClass]="{ 'left-0': currentLang === 'ar' , 'right-0': currentLang === 'en' || currentLang === 'tr' }"
+      class="absolute mt-2 w-32 bg-white border border-gray-200 rounded shadow z-50">
+        <button class="block w-full px-4 py-2 hover:bg-gray-100 text-blue-500 text-right"
+          (click)="changeLang('en')">English</button>
+        <button class="block w-full px-4 py-2 hover:bg-gray-100 text-blue-500 text-right"
+          (click)="changeLang('ar')">العربية</button>
+        <button class="block w-full px-4 py-2 hover:bg-gray-100 text-blue-500 text-right"
+          (click)="changeLang('tr')">Türkçe</button>
+      </div>
+    </div>
+
+    <!-- 🔔 Notifications -->
+    <div class="relative px-[15px] " (click)="toggleNotificationDropdown($event)">
+      <button class="relative text-gray-600 hover:text-blue-600 focus:outline-none">
+        <i class="fas fa-bell text-lg"></i>
+        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-1.5 rounded-full">3</span>
+      </button>
+
+      <!-- Dropdown -->
+      <div *ngIf="notifOpen"
+        [ngClass]="{ 'left-[-10px]': currentLang === 'ar' , 'right-[-10px]': currentLang === 'en' || currentLang === 'tr' }"
+        class="absolute  mt-2 w-72 bg-white shadow-xl border border-gray-100 rounded-lg z-50">
+        <div class="px-4 py-3 border-b text-sm font-semibold text-gray-700 bg-gray-50 rounded-t-lg">
+          الإشعارات
+        </div>
+        <ul class="max-h-60 overflow-y-auto divide-y divide-gray-100">
+          <li class="px-4 py-3 hover:bg-gray-50 transition">
+            <p class="text-sm text-gray-800 font-medium">طلب جديد تم استلامه</p>
+            <p class="text-xs text-gray-500">منذ 5 دقائق</p>
+          </li>
+          <li class="px-4 py-3 hover:bg-gray-50 transition">
+            <p class="text-sm text-gray-800 font-medium">تم تحديث إعدادات الحساب</p>
+            <p class="text-xs text-gray-500">منذ ساعة</p>
+          </li>
+          <li class="px-4 py-3 hover:bg-gray-50 transition">
+            <p class="text-sm text-gray-800 font-medium">لديك تقرير جديد للمراجعة</p>
+            <p class="text-xs text-gray-500">منذ يوم</p>
+          </li>
+        </ul>
+        <div class="px-4 py-2 text-center text-sm text-blue-600 hover:underline cursor-pointer">
+          عرض كل الإشعارات
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 👤 User Dropdown -->
+    <div class="relative" (click)="toggleUserDropdown()" tabindex="0">
+      <button class="flex items-center gap-2 text-gray-600 hover:text-blue-600 focus:outline-none">
+        <img src="assets/images/navbar/download.png" alt="User" class="w-8 h-8 rounded-full border border-gray-300 object-cover" />
+        <!-- <i class="fas fa-chevron-down text-xs"></i> -->
+      </button>
+
+      <div [ngClass]="{ 'left-0': currentLang === 'ar' , 'right-0': currentLang === 'en' || currentLang === 'tr'
+      }"
+        *ngIf="userOpen" class="absolute  mt-2 w-40 bg-white border border-gray-200 rounded shadow z-50">
+        <a class="block px-4 py-2 hover:bg-gray-100 text-blue-500 text-right" routerLink="/settings">الإعدادات</a>
+        <button class="block w-full px-4 py-2 text-right hover:bg-gray-100 text-blue-500" routerLink="/login">تسجيل الخروج</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div
+  class="absolute top-0 z-[99999999] h-screen pt-[20px] bg-black text-white p-4 shadow-md border-r transition-all duration-300 ease-in-out w-[75%] sm:w-[40%]"
+  [ngClass]="currentLang === 'ar'
+    ? (isSidebarOpen ? 'right-0 translate-x-0' : 'right-0 translate-x-full')
+    : (isSidebarOpen ? 'left-0 translate-x-0' : 'left-0 -translate-x-full')">
+
+  <app-sidebar (closeSidebar)="closeSidebar()"></app-sidebar>
+</div>
+

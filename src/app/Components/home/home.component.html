@@ -1,0 +1,444 @@
+<section>
+  <div class="flex justify-between items-center">
+    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800">
+      <i class="fas fa-home text-white bg-primary rounded-md p-2 "></i>
+      Home
+    </h1>
+    <div class="flex justify-end">
+      <button (click)="openPopup()"
+        class="p-3  text-[18px] bg-primary text-white hover:bg-blue-800 transition-all duration-200 rounded-[10px] ">
+        Rate the site
+        <i class="fas fa-crosshairs"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-[30px] ">
+    <div *ngFor="let item of grid"
+      class="text-black bg-white text-[20px] shadow-lg font-medium rounded-md p-4 flex justify-between items-center  ">
+      <div class="">
+        <h3>{{ item.name }}</h3>
+        <p> {{ item.value }} </p>
+      </div>
+      <div>
+        <div class="w-fit">
+          <i class="{{ item.icon }}  rounded-[10px]  p-3 "
+            [ngStyle]="{ 'color': item.color, 'background-color': item.bg }"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Last Branches Report -->
+  <div>
+    <div class="text-center mb-[20px] ">
+      <h4 class="text-[20px] md:text-[25px] font-bold text-gray-800">
+        Latest branch reviews
+      </h4>
+    </div>
+
+    <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let item of ratings" class="flex flex-col items-center p-6 rounded-xl shadow-lg bg-white">
+        <div class="relative w-32 h-32 rounded-full flex items-center justify-center" [ngClass]="{
+            'bg-red-100 text-red-600': item.percent < 50,
+            'bg-yellow-100 text-yellow-600': item.percent >= 50 && item.percent < 75,
+            'bg-green-100 text-green-600': item.percent >= 75
+          }">
+          <svg class="w-full h-full transform -rotate-90">
+            <circle class="text-gray-200" stroke-width="10" stroke="currentColor" fill="transparent" r="50" cx="64"
+              cy="64" />
+            <circle [ngClass]="{
+            'text-red-500': item.percent < 50,
+            'text-yellow-500': item.percent >= 50 && item.percent < 75,
+            'text-green-500': item.percent >= 75
+          }" stroke-width="10" [attr.stroke-dasharray]="circumference"
+              [attr.stroke-dashoffset]="circumference - (item.percent / 100) * circumference" stroke-linecap="round"
+              stroke="currentColor" fill="transparent" r="50" cx="64" cy="64" />
+          </svg>
+          <span class="absolute text-xl font-bold">{{ item.percent }}%</span>
+        </div>
+        <p class="mt-4 font-semibold text-gray-700">{{ item.label }}</p>
+      </div>
+    </div> -->
+
+    <div class="w-full flex justify-center items-center py-10">
+      <div class="relative w-[300px] h-[150px]">
+
+        <!-- ✅ نصف دائرة بثلاث ألوان -->
+        <svg viewBox="0 0 100 50" class="w-full h-full">
+
+          <!-- 🔴 أحمر -->
+          <path d="M 10 53 A 40 40 0 0 1 35 20" fill="none" stroke="#f87171" stroke-width="16" />
+
+          <!-- 🟡 أصفر -->
+          <path d="M 35 20 A 40 40 0 0 1 65 20" fill="none" stroke="#facc15" stroke-width="16" />
+
+          <!-- 🟢 أخضر -->
+          <path d="M 65 20 A 40 40 0 0 1 90 60" fill="none" stroke="#4ade80" stroke-width="16" />
+        </svg>
+
+        <!-- 🔻 السهم -->
+        <div class="absolute top-[98%] left-[50%] transform origin-bottom"
+          [style.transform]="getNeedleRotation(percentCircle)">
+          <div class="w-[3px] h-[110px] bg-black mx-auto rounded-sm"></div>
+        </div>
+
+        <!-- 🔢 النسبة -->
+        <div class="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 mt-2 text-xl font-bold text-gray-700">
+          {{ percentCircle }}%
+        </div>
+
+      </div>
+    </div>
+
+
+
+  </div>
+
+  <!--  -->
+
+  <div class="mt-[30px] bg-gray-200 shadow-lg rounded-[10px] p-4 ">
+    <div class=" grid grid-cols-1 md:grid-cols-2 gap-3 ">
+      <div class="bg-white  text-[20px] shadow-lg font-medium rounded-md p-4">
+        <div class="relative w-28 h-28 mx-auto">
+          <svg viewBox="0 0 36 36" class="w-full h-full rotate-[-90deg]" (mousemove)="updateTooltipPosition($event)"
+            (mouseleave)="hovered = null">
+            <!-- الخلفية الرمادية -->
+            <circle cx="18" cy="18" r="16" stroke="#4B5563" stroke-width="4" fill="none"
+              (mouseenter)="hovered = 'gray'" />
+
+            <!-- النسبة البرتقالية -->
+            <circle cx="18" cy="18" r="16" stroke="#F59E0B" stroke-width="4" fill="none"
+              [attr.stroke-dasharray]="percent + ', 100'" (mouseenter)="hovered = 'orange'" />
+          </svg>
+
+          <!-- Tooltip -->
+          <div *ngIf="hovered" [ngStyle]="{
+        top: tooltipY + 'px',
+        left: tooltipX + 'px'
+      }" class="absolute z-50 text-xs font-medium px-2 py-1 rounded bg-gray-800 text-white whitespace-nowrap pointer-events-none transition-all duration-300 opacity-0 scale-95 animate-fadeIn">
+            Mood {{ hovered === 'orange' ? percent : 100 - percent }}%
+          </div>
+        </div>
+        <div class="text-center">
+          <h3 class="text-[18px] md:text-[25px] font-bold text-gray-800 mt-[15px] ">
+            Mood
+          </h3>
+        </div>
+        <hr class="my-[15px] bg-gray-500 w-full h-[2px]">
+        <div class="flex justify-center gap-4 items-center ">
+          <h2 class="text-[18px] md:text-[25px] font-bold text-gray-800 ">
+            Average: <span class="bg-orange-500 text-white px-[10px] rounded-[10px]  ">{{ percent }}%</span>
+          </h2>
+          <p class="text-[18px] md:text-[25px] font-bold text-gray-800 ">
+            Remainding: <span class="bg-gray-500 text-white px-[10px] rounded-[10px]  ">{{ 100 - percent }}%</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-white  text-[20px] shadow-lg font-medium rounded-md p-4">
+        <div class="relative w-28 h-28 mx-auto">
+          <svg viewBox="0 0 36 36" class="w-full h-full rotate-[-90deg]" (mousemove)="updateTooltipPositionCook($event)"
+            (mouseleave)="hoveredCook = null">
+            <!-- الخلفية الرمادية -->
+            <circle cx="18" cy="18" r="16" stroke="#4B5563" stroke-width="4" fill="none"
+              (mouseenter)="hoveredCook = 'gray'" />
+
+            <!-- النسبة البرتقالية -->
+            <circle cx="18" cy="18" r="16" stroke="#F59E0B" stroke-width="4" fill="none"
+              [attr.stroke-dasharray]="percentCook + ', 100'" (mouseenter)="hoveredCook = 'orange'" />
+          </svg>
+
+          <!-- Tooltip -->
+          <div *ngIf="hoveredCook" [ngStyle]="{
+        top: tooltipYCook + 'px',
+        left: tooltipXCook + 'px'
+      }" class="absolute z-50 text-xs font-medium px-2 py-1 rounded bg-gray-800 text-white whitespace-nowrap pointer-events-none transition-all duration-300 opacity-0 scale-95 animate-fadeIn">
+            Cook Door {{ hoveredCook === 'orange' ? percentCook : 100 - percentCook }}%
+          </div>
+        </div>
+        <div class="text-center">
+          <h3 class="text-[18px] md:text-[25px] font-bold text-gray-800 mt-[15px] ">
+            Cook Door
+          </h3>
+        </div>
+        <hr class="my-[15px] bg-gray-500 w-full h-[2px]">
+        <div class="flex justify-center gap-4 items-center ">
+          <h2 class="text-[18px] md:text-[25px] font-bold text-gray-800 ">
+            Average: <span class="bg-orange-500 text-white px-[10px] rounded-[10px]  ">{{ percentCook }}%</span>
+          </h2>
+          <p class="text-[18px] md:text-[25px] font-bold text-gray-800 ">
+            Remainding: <span class="bg-gray-500 text-white px-[10px] rounded-[10px]  ">{{ 100 - percentCook }}%</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!--  -->
+
+
+  <div class="mt-[30px] bg-white shadow-lg rounded-[10px] p-4 ">
+
+    <div class="flex flex-col-reverse sm:flex-row justify-between items-center gap-3 mb-[20px] ">
+      <div class="text-[15px] md:text-[18px] flex items-center gap-2 w-full ">
+        <p class=" ">
+          Show
+        </p>
+        <div class="border  border-gray-200 rounded-[10px] py-2">
+          <select name="" id="" class="outline-none px-[10px]">
+            <option value="">10</option>
+            <option value="">20</option>
+            <option value="">30</option>
+          </select>
+        </div>
+        <p>
+          Input
+        </p>
+      </div>
+      <div class="flex items-center justify-start gap-2 w-full ">
+        <p class=" text-[15px] md:text-[18px] ">
+          Search
+        </p>
+        <input type="text" placeholder="Search"
+          class="border border-gray-200 outline-none w-full rounded-[10px] px-4 py-2">
+      </div>
+    </div>
+
+    <hr class="my-[5px] bg-gray-300 w-full h-[2px]">
+    <!-- Table -->
+    <div class="overflow-x-auto py-4">
+      <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+        <thead>
+          <tr class="bg-gray-900 text-gray-100 text-center whitespace-nowrap">
+            <th class="py-3 px-4 border-b ">#</th>
+            <th class="py-3 px-4 border-b">The person present</th>
+            <th class="py-3 px-4 border-b">Location</th>
+            <th class="py-3 px-4 border-b">Rate</th>
+            <th class="py-3 px-4 border-b">Resident name </th>
+            <th class="py-3 px-4 border-b">Date</th>
+            <th class="py-3 px-4 border-b">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap">
+            <td class="py-3 px-4 border-b">1</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">Cook Door</td>
+            <td class="py-3 px-4 border-b">80%</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">2025-03-18 18:55:12</td>
+            <td class="py-3 px-4 border-b space-x-3">
+              <div class="flex items-center justify-center gap-3 ">
+                <button class="text-blue-500 hover:text-blue-700" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <!-- <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+              <i class="fas fa-edit"></i>
+            </button> -->
+                <button class="text-red-500 hover:text-red-700" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap ">
+            <td class="py-3 px-4 border-b">2</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">Cook Door</td>
+            <td class="py-3 px-4 border-b">80%</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">2025-03-18 18:55:12</td>
+            <td class="py-3 px-4 border-b space-x-3">
+              <div class="flex items-center justify-center gap-3 ">
+                <button class="text-blue-500 hover:text-blue-700" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <!-- <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+              <i class="fas fa-edit"></i>
+            </button> -->
+                <button class="text-red-500 hover:text-red-700" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap ">
+            <td class="py-3 px-4 border-b">3</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">Cook Door</td>
+            <td class="py-3 px-4 border-b">80%</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">2025-03-18 18:55:12</td>
+            <td class="py-3 px-4 border-b space-x-3">
+              <div class="flex items-center justify-center gap-3 ">
+                <button class="text-blue-500 hover:text-blue-700" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <!-- <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+              <i class="fas fa-edit"></i>
+            </button> -->
+                <button class="text-red-500 hover:text-red-700" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+
+
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- pagination -->
+    <div class="flex flex-col-reverse sm:flex-row gap-3 justify-between items-center space-x-1 mt-6">
+      <div class="flex justify-center items-center space-x-1">
+        <!-- Prev Button -->
+        <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+          class="px-3 py-1 rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100 disabled:opacity-50">
+          Prev
+        </button>
+
+        <!-- Dynamic Page Buttons -->
+        <ng-container *ngFor="let page of getDisplayedPages()">
+          <button (click)="goToPage(page)" [class.bg-blue-600]="currentPage === page"
+            [class.text-white]="currentPage === page"
+            class="px-3 py-1 rounded-md border border-gray-300 text-gray-600 hover:bg-blue-500 hover:text-white transition-colors duration-300">
+            {{ page }}
+          </button>
+        </ng-container>
+
+        <!-- Next Button -->
+        <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+          class="px-3 py-1 rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100 disabled:opacity-50">
+          Next
+        </button>
+      </div>
+
+      <div>
+        <p>
+          Page {{ currentPage }} of {{ totalPages }}
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</section>
+
+
+
+
+
+<!-- popup -->
+
+<div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500"
+  [ngClass]="{ 'opacity-100 pointer-events-auto  ': showPopup, 'opacity-0 pointer-events-none': !showPopup }">
+  <!-- الخلفية السوداء -->
+  <div (click)="closePopup()" class="absolute inset-0 bg-gray-900 transition-opacity duration-500"
+    [ngClass]="{ 'opacity-50': showPopup, 'opacity-0': !showPopup }"></div>
+
+  <!-- نافذة البوب أب -->
+  <div class="bg-white rounded-xl shadow-xl p-[20px] transform transition-all duration-500 ease-in-out"
+    [ngClass]="{ 'scale-100 opacity-100 w-[95%] md:w-[50%] ': showPopup, 'w-0 scale-95 opacity-0': !showPopup }">
+    <!-- رأس النافذة -->
+    <div class="relative mb-4">
+      <h3 class="text-xl font-semibold text-gray-800">Add New Rate</h3>
+      <i class="fas fa-times absolute top-0 right-0 bg-gray-300 px-2 py-1 text-gray-800 rounded-[10px] cursor-pointer text-lg"
+        (click)="closePopup()"></i>
+    </div>
+
+    <!-- النموذج -->
+    <form>
+      <div class="mb-4 space-y-2 ">
+        <label class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">The person present
+          :</label>
+        <input type="text"
+          class="w-full h-12 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none ">
+      </div>
+
+      <div class="mb-4 space-y-2 ">
+
+        <!-- <div>
+          <button (click)="selectAll()"
+            class="text-[18px] md:text-[20px] font-medium bg-green-600 text-white py-2 px-4 rounded-lg">
+            Select All
+          </button>
+          <button (click)="deleteAll()"
+            class="text-[18px] mx-[10px] md:text-[20px] font-medium bg-red-600 text-white py-2 px-4 rounded-lg">
+            Deselect All
+          </button>
+        </div> -->
+
+        <div class="w-full" #powersBox>
+          <label class="text-[18px] md:text-[20px] font-medium text-[#374151]">
+            Question Groups
+          </label>
+          <div class="my-[10px]">
+            <button (click)="selectAll()"
+              class="text-[18px] md:text-[20px] font-medium bg-green-600 text-white py-2 px-4 rounded-lg">
+              Select All
+            </button>
+            <button (click)="deleteAll()"
+              class="text-[18px] mx-[10px] md:text-[20px] font-medium bg-red-600 text-white py-2 px-4 rounded-lg">
+              Deselect All
+            </button>
+          </div>
+          <div
+            class="relative w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+            <div (click)="toggleDropdownPowers()"
+              class="w-full flex flex-wrap items-center gap-2 cursor-pointer bg-white">
+              <span *ngFor="let item of selectedPowers"
+                class="flex items-center bg-blue-100 text-blue-700 text-sm px-2 py-1 rounded-full">
+                {{ item }}
+                <button (click)="removePower(item); $event.stopPropagation()"
+                  class="mx-2 text-red-500 hover:text-red-700 text-xs">
+                  &times;
+                </button>
+              </span>
+              <span *ngIf="selectedPowers.length === 0" class="text-gray-400 text-sm">Select options...</span>
+            </div>
+            <ul *ngIf="dropdownOpenPowers"
+              class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-60 overflow-auto">
+              <li *ngFor="let option of allOptionsPowers" (click)="selectPower(option)"
+                [class.opacity-50]="isPowerSelected(option)" [class.pointer-events-none]="isPowerSelected(option)"
+                class="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
+                {{ option }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-4 space-y-2 ">
+        <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">Locations :
+        </label>
+        <select
+          class="w-full h-12 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+          <option value="" disabled selected>Choose Location</option>
+          <option value="">Cook Door</option>
+          <option value="">Moods</option>
+        </select>
+      </div>
+
+      <button type="submit"
+        class="w-[60%] md:w-[20%] text-[18px] md:text-[22px] font-medium bg-primary text-white py-2 px-4 rounded-lg">
+        <i class="fas fa-save mx-[10px] "></i> Save
+      </button>
+      <button (click)="closePopup()"
+        class="mx-[12px] text-[18px] md:text-[22px] font-medium bg-gray-300 text-gray-800 py-2 px-4 rounded-lg">
+        Close
+      </button>
+    </form>
+  </div>
+</div>

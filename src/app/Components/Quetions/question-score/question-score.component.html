@@ -1,0 +1,45 @@
+<section>
+  <div class="flex justify-between items-center">
+    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800">
+      <i class="fas fa-star text-white bg-primary rounded-md p-2 "></i>
+      Question Score
+    </h1>
+    <div class="flex justify-end">
+      <button (click)="openPopup()"
+        class="p-3  text-[18px] bg-primary text-white hover:bg-blue-800 transition-all duration-200 rounded-[10px] ">
+        Add +
+        <!-- <i class="fas fa-"></i> -->
+      </button>
+    </div>
+  </div>
+
+
+  <div class="bg-gray-300 shadow-lg rounded-[10px] p-4 my-[30px] ">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 " >
+      <div class="bg-white shadow-lg rounded-[10px] p-4 flex justify-between items-center " >
+        <div class="" >
+          <h4 class="text-[16px] md:text-[20px] font-bold text-gray-500" >
+            yes Or No
+          </h4>
+          <p class="text-[14px] md:text-[18px] font-medium text-gray-700 my-[10px] " >
+            Yes - 100
+          </p>
+          <p class="text-[14px] md:text-[18px] font-medium text-gray-700 my-[10px] " >
+            No - 0
+          </p>
+        </div>
+        <div class="flex justify-between items-center " >
+          <div class="flex flex-col gap-1 text-[13px] md:text-[15px] items-center">
+            <button class="bg-green-300 text-white px-4 py-1 rounded-lg hover:bg-green-500 mx-[5px]" title="Edit">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-700" title="Delete">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

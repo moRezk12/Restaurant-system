@@ -1,0 +1,115 @@
+<section>
+  <div>
+    <h3 class="text-[18px] md:text-[25px] font-bold text-gray-800">
+      <i class="fas fa-chart-bar text-white bg-primary rounded-md p-2 "></i>
+      Report
+    </h3>
+  </div>
+
+  <div class="mt-[20px] bg-white shadow-lg rounded-[10px] p-4 ">
+    <form action="">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3  ">
+        <div>
+          <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Branchs</label>
+          <select name="" id=""
+            class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+            <option value="" disabled selected>Choose Branch</option>
+            <option value="">Branch 1</option>
+            <option value="">Branch 2</option>
+            <option value="">Branch 3</option>
+          </select>
+        </div>
+        <div>
+          <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Main Groups</label>
+          <select name="" id=""
+            class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+            <option value="" disabled selected>Choose Main Group</option>
+            <option value="">Group 1</option>
+            <option value="">Group 2</option>
+            <option value="">Group 3</option>
+          </select>
+        </div>
+        <div>
+          <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Subgroups</label>
+          <select name="" id=""
+            class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+            <option value="" disabled selected>Choose Subgroup</option>
+            <option value="">subgroup 1</option>
+            <option value="">subgroup 2</option>
+            <option value="">subgroup 3</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row gap-3 justify-between items-center mt-[20px] ">
+        <div class="w-full">
+          <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">From</label>
+          <input type="date"
+            class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+        </div>
+        <div class="w-full">
+          <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">To</label>
+          <input type="date"
+            class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+        </div>
+      </div>
+    </form>
+
+    <div class="  mt-[20px]">
+      <button type="submit"
+        class="w-full md:w-[20%]  bg-primary text-white text-[18px] md:text-[20px] rounded-lg px-4 py-2 focus:outline-none">
+        <i class="fas fa-search text-white  rounded-md px-2"></i>
+        Search
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto py-4">
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+      <thead>
+        <tr class="bg-gray-900 text-gray-100 text-center whitespace-nowrap ">
+          <th class="py-3 px-4 border-b ">#</th>
+          <th class="py-3 px-4 border-b">Location Name </th>
+          <th class="py-3 px-4 border-b">Number of visits</th>
+          <th class="py-3 px-4 border-b">Average percentage </th>
+          <th class="py-3 px-4 border-b">
+            <!-- Actions -->
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap">
+          <td class="py-3 px-4 border-b">1</td>
+          <td class="py-3 px-4 border-b">Cook Door</td>
+          <td class="py-3 px-4 border-b">5</td>
+          <td class="py-3 px-4 border-b">80.00%</td>
+          <td class="py-3 px-4 border-b space-x-3">
+            <div class="flex items-center justify-center gap-3 ">
+              <button class="bg-green-500 text-white px-[25px]  py-1 rounded-md hover:bg-green-700" title="View">
+                <i class="fas fa-check font-bolder text-[18px] "></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap">
+          <td class="py-3 px-4 border-b">1</td>
+          <td class="py-3 px-4 border-b">Cook Door</td>
+          <td class="py-3 px-4 border-b">2</td>
+          <td class="py-3 px-4 border-b">30.00%</td>
+          <td class="py-3 px-4 border-b space-x-3">
+            <div class="flex items-center justify-center gap-3 ">
+              <button class="bg-green-500 text-white px-[25px]  py-1 rounded-md hover:bg-green-700" title="View">
+                <i class="fas fa-check font-bolder text-[18px] "></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+
+
+
+      </tbody>
+    </table>
+  </div>
+</section>

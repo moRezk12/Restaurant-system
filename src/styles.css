@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  /* bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 */
+  background: linear-gradient(to bottom, #f9f9f9, #f9f9f9);
+}
+
+
+
+.iti {
+  width: 100%  !important;
+}
+
+.iti__flag-container {
+  border-right: 1px solid #9CA3AF  !important;
+}
+
+.iti__selected-country{
+  border-right: 2px solid #9CA3AF  !important;
+  padding-right: 5px !important;
+}

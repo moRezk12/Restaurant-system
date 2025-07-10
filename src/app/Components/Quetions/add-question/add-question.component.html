@@ -1,0 +1,189 @@
+<section>
+  <div class="flex justify-between items-center">
+    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800">
+      <i class="fas fa-question text-white bg-primary rounded-md p-2 "></i>
+      Questions
+    </h1>
+    <div class="flex justify-end">
+      <button (click)="openPopup()"
+        class="p-3  text-[18px] bg-primary text-white hover:bg-blue-800 transition-all duration-200 rounded-[10px] ">
+        Add Question +
+        <!-- <i class="fas fa-"></i> -->
+      </button>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-[30px] ">
+    <div *ngFor="let item of grid"
+      class="text-black bg-white text-[20px] shadow-lg font-medium rounded-md p-4 flex justify-between items-center  ">
+      <div class="">
+        <h3>{{ item.name }}</h3>
+        <p> {{ item.value }} </p>
+      </div>
+      <div>
+        <div class="w-fit">
+          <i class="{{ item.icon }}  rounded-[10px]  p-3 "
+            [ngStyle]="{ 'color': item.color, 'background-color': item.bg }"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-gray-300 shadow-lg rounded-[10px] p-4">
+    <div>
+      <input type="text" name="" id="" placeholder="Search By Group Name   "
+        class="w-full p-2 border border-gray-300 rounded-[10px] ">
+    </div>
+
+    <div class="my-[20px]" *ngFor="let group of groups">
+      <!-- Main Group -->
+      <h3 class="text-[18px] underline md:text-[25px] font-bold text-gray-800">
+        - {{ group.title }} ({{ group.totalQuestions }} Questions)
+      </h3>
+
+      <!-- Sub Groups -->
+      <div class="my-[20px]" *ngFor="let sub of group.subGroups">
+        <div class="my-[10px] flex justify-between items-center">
+          <p class="text-[15px] md:text-[20px] font-medium text-gray-700">
+            {{ sub.name }}
+          </p>
+          <p class="text-[15px] md:text-[20px] font-medium text-gray-700">
+            ({{ sub.questionsCount }} Questions)
+            <i class="fas fa-question mx-[10px] bg-blue-800 text-white rounded-[10px] p-2"></i>
+          </p>
+        </div>
+
+        <!-- Questions -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div *ngFor="let question of sub.questions"
+            class="text-black bg-white text-[20px] shadow-lg font-medium rounded-lg p-4 transition-all duration-200">
+            <h4 class="my-[10px] text-[15px] md:text-[20px] font-medium text-gray-600">
+              {{ question }}
+            </h4>
+            <div class="flex gap-1 text-[18px] md:text-[20px] items-center">
+              <div class="bg-black hover:bg-gray-800 cursor-pointer text-white rounded-[8px] px-4 py-1">
+                <i class="fas fa-check text-gold"></i>
+              </div>
+              <button class="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-700 mx-[5px]" title="Edit">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-700" title="Delete">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- popup -->
+
+<div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500"
+  [ngClass]="{ 'opacity-100 pointer-events-auto': showPopup, 'opacity-0 pointer-events-none': !showPopup }">
+
+  <!-- خلفية سوداء شفافة -->
+  <div (click)="closePopup()" class="absolute inset-0 bg-gray-900 transition-opacity duration-500"
+    [ngClass]="{ 'opacity-50': showPopup, 'opacity-0': !showPopup }"></div>
+
+  <!-- نافذة البوب أب -->
+  <div class="bg-white rounded-xl shadow-xl p-6 w-[95%] md:w-[70%] transition-all duration-500 transform ease-in-out
+            overflow-y-auto max-h-[90vh] scrollbar-hide"
+    [ngClass]="{ 'scale-100 opacity-100': showPopup, 'scale-95 opacity-0': !showPopup }">
+
+
+    <!-- رأس -->
+    <div class="relative mb-4">
+      <h3 class="text-xl font-bold text-gray-800">Add New Questions</h3>
+      <i class="fas fa-times absolute top-0 right-0 bg-gray-300 px-2 py-1 text-gray-800 rounded cursor-pointer"
+        (click)="closePopup()"></i>
+    </div>
+
+    <!-- النموذج -->
+    <form (ngSubmit)="saveQuestions()" #questionForm="ngForm">
+      <div class="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4 " >
+        <!-- اختيار المجموعة -->
+        <div class="mb-4">
+          <label class="block text-gray-700 font-medium mb-1">Main Group:</label>
+          <select class="w-full border rounded-lg px-4 py-2 text-gray-700" [(ngModel)]="selectedGroup" name="mainGroup"
+            (change)="onGroupChange()" required>
+            <option value="" disabled selected>Select Main Group</option>
+            <option *ngFor="let group of mainGroups" [value]="group.name">{{ group.name }}</option>
+          </select>
+        </div>
+
+        <!-- اختيار المجموعة الفرعية -->
+        <div class="mb-4">
+          <label class="block text-gray-700 font-medium mb-1">Sub Group:</label>
+          <select class="w-full border rounded-lg px-4 py-2 text-gray-700" [(ngModel)]="selectedSubGroup" name="subGroup"
+            required>
+            <option value="" disabled selected>Select Sub Group</option>
+            <option *ngFor="let sub of filteredSubGroups" [value]="sub">{{ sub }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- عرض الأسئلة -->
+      <div *ngFor="let q of questions; let i = index" class="border p-4 mb-4 rounded-lg bg-gray-50 relative">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">Arabic:</label>
+            <input type="text" [(ngModel)]="q.ar" [name]="'ar' + i"
+              class="w-full border rounded-lg px-4 py-2 text-gray-700" required />
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">English:</label>
+            <input type="text" [(ngModel)]="q.en" [name]="'en' + i"
+              class="w-full border rounded-lg px-4 py-2 text-gray-700" required />
+          </div>
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">Turkish:</label>
+            <input type="text" [(ngModel)]="q.tr" [name]="'tr' + i"
+              class="w-full border rounded-lg px-4 py-2 text-gray-700" required />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Status:</label>
+          <select [(ngModel)]="q.active" [name]="'active' + i" class="w-full border rounded-lg px-4 py-2 text-gray-700">
+            <option [value]="true">Yes</option>
+            <option [value]="false">No</option>
+          </select>
+        </div>
+
+        <button type="button" (click)="removeQuestion(i)"
+          class="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 rounded-full w-8 h-8 flex items-center justify-center">
+          <i class="fas fa-trash-alt text-sm"></i>
+        </button>
+      </div>
+
+      <!-- زر إضافة سؤال -->
+      <div class="text-center mb-6">
+        <button type="button" (click)="addQuestion()"
+          class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg text-lg font-medium">
+          <i class="fas fa-plus mr-2"></i> Add Question
+        </button>
+      </div>
+
+      <!-- أزرار حفظ وإغلاق -->
+      <div class="flex  gap-4">
+        <button type="submit" class="bg-primary text-white px-6 py-2 text-lg rounded-lg hover:bg-gold-700">
+          <i class="fas fa-save mr-2"></i> Save
+        </button>
+
+        <button type="button" (click)="closePopup()"
+          class="bg-gray-300 text-gray-800 px-6 py-2 text-lg rounded-lg hover:bg-gray-400">
+          Close
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<section>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div *ngFor="let item of tasks" class="bg-white shadow-lg rounded-[10px] p-4">
+      <div *ngIf="item.name">
+        <h3 class="text-[18px] md:text-[22px] font-bold mb-[20px] text-gray-800">
+          {{ item.name }}
+        </h3>
+        <p class="text-[15px] md:text-[20px] font-medium text-gray-600">
+          {{ item.progress }}
+        </p>
+      </div>
+      <div *ngIf="item.name1">
+        <div class="w-full flex justify-between items-center gap-3  ">
+          <div class="text-center">
+            <h2 class="text-[18px] md:text-[22px] font-bold text-gray-800 mb-[10px]">
+              {{ item.name1 }}
+            </h2>
+
+            <div class="w-fit mx-auto ">
+              <p
+                class="px-[20px] py-[2px]  text-[15px] md:text-[20px] font-medium bg-[#fbc45d] text-white rounded-[10px] ">
+                {{ item.progress1 }}
+              </p>
+            </div>
+          </div>
+          <div class="text-center">
+            <h2 class="text-[18px] md:text-[22px] font-bold text-gray-800 mb-[10px]">
+              {{ item.name2 }}
+            </h2>
+            <div class="w-fit mx-auto ">
+              <p class="px-[20px] py-[2px] text-[15px] md:text-[20px] font-medium bg-[#000] text-white rounded-[10px] ">
+                {{ item.progress2 }}
+              </p>
+            </div>
+          </div>
+          <div class=" text-center">
+            <h2 class="text-[18px] md:text-[22px] font-bold text-gray-800 mb-[10px]">
+              {{ item.name3 }}
+            </h2>
+            <div class="w-fit mx-auto ">
+              <p
+                class=" px-[20px] py-[2px]  text-[15px] md:text-[20px] font-medium bg-gray-500 text-white rounded-[10px] ">
+                {{ item.progress3 }}
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-[20px] bg-gray-300 w-full h-[2px] ">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+    <div *ngFor="let item of location" class="bg-white shadow-lg rounded-[10px] p-4">
+      <div class="flex justify-between ">
+        <div>
+          <a routerLink="{{ item.link }}" class="text-[18px]  md:text-[22px] font-bold  text-gray-800 hover:text-primary transition-all duration-200 ">
+            {{ item.name }}
+          </a>
+          <div class="w-full flex justify-between items-center gap-2 mt-[20px] ">
+            <p
+              class="px-[15px] py-[2px]  text-[15px] md:text-[20px] font-medium bg-green-500 text-white rounded-[10px] ">
+              {{ item.progress1 }}
+            </p>
+            <p
+              class=" px-[15px] py-[2px]  text-[15px] md:text-[20px] font-medium bg-[#fbc45d] text-white rounded-[10px] ">
+              {{ item.progress3 }}
+            </p>
+            <p class="px-[15px] py-[2px] text-[15px] md:text-[20px] font-medium bg-[#000] text-white rounded-[10px] ">
+              {{ item.progress2 }}
+            </p>
+            <p
+              class=" px-[15px] py-[2px]  text-[15px] md:text-[20px] font-medium bg-gray-500 text-white rounded-[10px] ">
+              {{ item.progress4 }}
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="w-fit">
+            <i class="fa {{ item.icon }} text-white bg-gray-500 rounded-[10px] p-3 "></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

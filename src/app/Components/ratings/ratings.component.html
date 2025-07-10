@@ -1,0 +1,159 @@
+<section>
+  <div>
+    <h3 class="text-[18px] md:text-[25px] font-bold text-gray-800">
+      <i class="fas fa-star text-white bg-primary rounded-md p-2 "></i>
+      Rating
+    </h3>
+  </div>
+
+  <div class="mt-[30px] bg-white shadow-lg rounded-[10px] p-4 ">
+
+    <div class="flex flex-col-reverse sm:flex-row justify-between items-center gap-3 mb-[20px] ">
+      <div class="text-[15px] md:text-[18px] flex items-center gap-2 w-full ">
+        <p class=" ">
+          Show
+        </p>
+        <div class="border  border-gray-200 rounded-[10px] py-2">
+          <select name="" id="" class="outline-none px-[10px]">
+            <option value="">10</option>
+            <option value="">20</option>
+            <option value="">30</option>
+          </select>
+        </div>
+        <p>
+          Input
+        </p>
+      </div>
+      <div class="flex items-center justify-start gap-2 w-full ">
+        <p class=" text-[15px] md:text-[18px] ">
+          Search
+        </p>
+        <input type="text" placeholder="Search"
+          class="border border-gray-200 outline-none w-full rounded-[10px] px-4 py-2">
+      </div>
+    </div>
+
+    <hr class="my-[5px] bg-gray-300 w-full h-[2px]">
+    <!-- Table -->
+    <div class="overflow-x-auto py-4">
+      <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+        <thead>
+          <tr class="bg-gray-900 text-gray-100 text-center whitespace-nowrap">
+            <th class="py-3 px-4 border-b ">#</th>
+            <th class="py-3 px-4 border-b">The person present</th>
+            <th class="py-3 px-4 border-b">Location Name </th>
+            <th class="py-3 px-4 border-b">Rate</th>
+            <th class="py-3 px-4 border-b">Resident name </th>
+            <th class="py-3 px-4 border-b">Date</th>
+            <th class="py-3 px-4 border-b">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap">
+            <td class="py-3 px-4 border-b">1</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">Cook Door</td>
+            <td class="py-3 px-4 border-b">80%</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">2025-03-18 18:55:12</td>
+            <td class="py-3 px-4 border-b space-x-3">
+              <div class="flex items-center justify-center gap-3 ">
+                <button class="text-blue-500 hover:text-blue-700" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <!-- <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+              <i class="fas fa-edit"></i>
+            </button> -->
+                <button class="text-red-500 hover:text-red-700" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap ">
+            <td class="py-3 px-4 border-b">2</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">Cook Door</td>
+            <td class="py-3 px-4 border-b">80%</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">2025-03-18 18:55:12</td>
+            <td class="py-3 px-4 border-b space-x-3">
+              <div class="flex items-center justify-center gap-3 ">
+                <button class="text-blue-500 hover:text-blue-700" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <!-- <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+              <i class="fas fa-edit"></i>
+            </button> -->
+                <button class="text-red-500 hover:text-red-700" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50 transition text-center whitespace-nowrap ">
+            <td class="py-3 px-4 border-b">3</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">Cook Door</td>
+            <td class="py-3 px-4 border-b">80%</td>
+            <td class="py-3 px-4 border-b">Mohamed</td>
+            <td class="py-3 px-4 border-b">2025-03-18 18:55:12</td>
+            <td class="py-3 px-4 border-b space-x-3">
+              <div class="flex items-center justify-center gap-3 ">
+                <button class="text-blue-500 hover:text-blue-700" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <!-- <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+              <i class="fas fa-edit"></i>
+            </button> -->
+                <button class="text-red-500 hover:text-red-700" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+
+
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- pagination -->
+    <div class="flex flex-col-reverse sm:flex-row gap-3 justify-between items-center space-x-1 mt-6">
+      <div class="flex justify-center items-center space-x-1">
+        <!-- Prev Button -->
+        <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+          class="px-3 py-1 rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100 disabled:opacity-50">
+          Prev
+        </button>
+
+        <!-- Dynamic Page Buttons -->
+        <ng-container *ngFor="let page of getDisplayedPages()">
+          <button (click)="goToPage(page)" [class.bg-blue-600]="currentPage === page"
+            [class.text-white]="currentPage === page"
+            class="px-3 py-1 rounded-md border border-gray-300 text-gray-600 hover:bg-blue-500 hover:text-white transition-colors duration-300">
+            {{ page }}
+          </button>
+        </ng-container>
+
+        <!-- Next Button -->
+        <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+          class="px-3 py-1 rounded-md border border-gray-300 text-gray-600 hover:bg-gray-100 disabled:opacity-50">
+          Next
+        </button>
+      </div>
+
+      <div>
+        <p>
+          Page {{ currentPage }} of {{ totalPages }}
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</section>

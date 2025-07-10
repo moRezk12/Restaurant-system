@@ -1,0 +1,52 @@
+<div class="space-y-1">
+
+  <div class="  md:hidden text-[14px] sm:text-[18px] font-medium flex items-center justify-end " >
+    <button (click)="toggleSidebar()" class="px-4 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200">
+      <i class="fas fa-close  "  ></i>
+    </button>
+  </div>
+
+  <ng-container *ngFor="let item of links">
+
+    <!-- عناصر بدون children -->
+    <ng-container *ngIf="!item.children"  >
+      <a (click)="closeAllDropdowns()" routerLink="{{ item.link }}" routerLinkActive="bg-blue-100 text-blue-700"
+        class="flex items-center text-[14px] sm:text-[18px] gap-3 px-4 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200 font-medium">
+        <i class="fas" [ngClass]="item.icon"></i>
+        {{ item.name }}
+      </a>
+    </ng-container>
+
+    <!-- عناصر فيها children (dropdown) -->
+    <ng-container *ngIf="item.children">
+      <div class="text-[14px] sm:text-[18px]" >
+        <button (click)="toggleDropdown(item)"
+          [ngClass]="{ 'bg-blue-100 text-blue-700': item.open }"
+          class="w-full flex items-center justify-between px-4 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition duration-200 font-medium text-left">
+          <div class="flex items-center gap-3" >
+            <i class="fas   " [ngClass]="item.icon"></i>
+            <p class="" >
+              {{ item.name }}
+            </p>
+          </div>
+          <span [ngClass]="{ 'rotate-180': item.open }" class="transition-transform">
+            <i class="fas fa-chevron-down"></i>
+          </span>
+        </button>
+
+
+        <div *ngIf="item.open" class="pl-4 space-y-1 mt-1 ">
+          <a *ngFor="let child of item.children"
+          (click)="toggleSidebar()"
+          routerLink="{{ child.link }}"
+            routerLinkActive="bg-blue-100 text-blue-700"
+            class="block px-3 py-1.5 rounded-md  hover:bg-blue-50 hover:text-blue-600 transition">
+            <i class="fas text-sm" [ngClass]="child.icon"></i>
+            {{ child.name }}
+          </a>
+        </div>
+      </div>
+    </ng-container>
+
+  </ng-container>
+</div>
