@@ -36,7 +36,11 @@ export class LoginComponent implements OnInit {
 
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/)
+      ]],
     });
 
   }
@@ -51,34 +55,39 @@ export class LoginComponent implements OnInit {
       this._authService.login(this.loginForm.value).subscribe({
         next: (res : any ) => {
           console.log(res);
+
+
           Swal.fire({
             icon: 'success',
             title: 'Success',
             text: res.message.message || 'Login successfully',
             confirmButtonColor: '#28a745',
             confirmButtonText: 'OK',
-            showConfirmButton: true,
-            timer: 3000, // 3 ثواني
+            timer: 2000,
             timerProgressBar: true,
+            customClass: {
+              confirmButton: 'mySuccess'
+            }
           }).then(() => {
-            this.localStorage.setToken(res.message.access_Token);
-            this.route.navigate(['/home']);
+            if (res.message?.access_Token) {
+                this.localStorage.setToken(res.message.access_Token);
+                this.route.navigate(['/home']);
+            }
           });
 
         },
         error: (err) => {
-          console.log(err);
           Swal.fire({
             icon: 'error',
-            title: 'Error',
-            text: err.error.message || 'An error occurred'  ,
-            confirmButtonColor: '#dc3545',
-            confirmButtonText: 'OK',
-            showConfirmButton: true,
-            timer: 3000, // الوقت بالـ milliseconds (3 ثواني)
-            timerProgressBar: true, // شريط وقت العد التنازلي
-            allowOutsideClick: false, // ما يختفيش بالضغط بره
+            title: err.error?.message || 'Something went wrong!',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'Close',
+            customClass: {
+              confirmButton: 'myError'
+            }
           });
+
+
 
         }
       })

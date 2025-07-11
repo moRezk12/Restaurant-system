@@ -101,6 +101,9 @@ ngOnInit(): void {
               confirmButtonText: 'OK',
               timer: 3000, // الوقت بالـ milliseconds (3 ثواني)
               timerProgressBar: true, // شريط وقت العد التنازلي
+              customClass: {
+                confirmButton: 'mySuccess'
+              }
           }).then(() => {
             this.route.navigate(['/login']);
           });
@@ -116,11 +119,13 @@ ngOnInit(): void {
             timer: 3000, // الوقت بالـ milliseconds (3 ثواني)
             timerProgressBar: true, // شريط وقت العد التنازلي
             allowOutsideClick: false, // ما يختفيش بالضغط بره
+            customClass: {
+              confirmButton: 'myError'
+            }
           });
         }
       });
     } else {
-      console.log('❌ Invalid Form Data:', this.registerForm.value);
 
       this.registerForm.markAllAsTouched();
     }

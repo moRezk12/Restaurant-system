@@ -14,7 +14,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
-              "intl-tel-input"
+              "intl-tel-input",
+              "sweetalert2"
             ],
             "outputPath": "dist/system",
             "index": "src/index.html",
