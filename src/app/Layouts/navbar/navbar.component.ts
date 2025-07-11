@@ -1,6 +1,8 @@
 import { Component, ElementRef, EventEmitter, HostListener , Output, Renderer2 } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from 'src/app/Core/Services/Language/language.service';
+import { LocalstorageService } from 'src/app/Core/Services/localStorage/localstorage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -31,7 +33,9 @@ export class NavbarComponent {
       constructor(private languageService: LanguageService,
         private translate: TranslateService,
         private renderer: Renderer2 ,
-        private eRef: ElementRef) {
+        private eRef: ElementRef,
+        private localStorage: LocalstorageService,
+        private router: Router) {
 
           this.languageService.getLanguage().subscribe((lang) => {
         this.currentLang = lang;
@@ -104,7 +108,8 @@ export class NavbarComponent {
 
   logout() {
     // add logout logic
-    console.log('Logging out...');
+    this.localStorage.clearToken();
+    this.router.navigate(['/login']);
   }
 
 }

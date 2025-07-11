@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NavbarComponent } from './Layouts/navbar/navbar.component';
@@ -36,7 +36,10 @@ import { DetailsForonetaskComponent } from './Components/task/details-foronetask
 import { CreateUserComponent } from './Components/Users/create-user/create-user.component';
 import { CreateSiteComponent } from './Components/Site/create-site/create-site.component';
 import { CreateGroupComponent } from './Components/Groups/create-group/create-group.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { AuthInterceptor } from './Core/Interceptor/sendToken/auth.interceptor';
+import { SpinnerInterceptor } from './Core/Interceptor/loading/spinner.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -78,8 +81,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -91,7 +97,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    {provide : HTTP_INTERCEPTORS, useClass : AuthInterceptor, multi : true},
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

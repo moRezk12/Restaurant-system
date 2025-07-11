@@ -17,15 +17,20 @@
         Sign in to your account
       </p>
 
-      <form class="space-y-3">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-3">
         <!-- Email Field -->
         <div class="space-y-2">
           <label class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">
             <!-- <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4z" /></svg> -->
             Email
           </label>
-          <input type="email" value="admin@restaurant.com" placeholder="admin@restaurant.com" required
+          <input type="email" formControlName="email" placeholder="admin@restaurant.com" required
             class="w-full py-2 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none " />
+            <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+            class="text-red-500 text-sm">
+            <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
+            <div *ngIf="loginForm.get('email')?.errors?.['email']">Enter a valid email address.</div>
+          </div>
         </div>
 
         <!-- Password Field -->
@@ -35,14 +40,27 @@
             Password
           </label>
           <div class="relative">
-            <input [type]="showPassword ? 'text' : 'password'" placeholder="••••••••" required value="12345678"
+            <input [type]="showPassword ? 'text' : 'password'" placeholder="••••••••" required formControlName="password"
               class="relative w-full py-2 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 pr-12 focus:outline-none " />
             <i class="absolute top-1/2 transform -translate-y-1/2 text-gray-600 cursor-pointer" [ngClass]="[
               showPassword ? 'fas fa-eye-slash' : 'fas fa-eye',
               lang === 'ar' ? 'left-3' : 'right-3'
             ]" (click)="togglePassword()"></i>
           </div>
-
+          <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+            class="text-red-500 text-sm">
+            <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</div>
+            <div *ngIf="loginForm.get('password')?.errors?.['minlength']">Minimum length is 8 characters.</div>
+            <div *ngIf="loginForm.get('password')?.errors?.['pattern']">
+              Password must include:
+              <ul class="list-disc pl-5">
+                <li>At least one uppercase letter</li>
+                <li>One lowercase letter</li>
+                <li>One number</li>
+                <li>One special character</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <!-- Remember Me & Forgot Password -->
@@ -57,7 +75,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button routerLink="/home"
+        <button type="submit"
           class="w-full py-2 bg-primary text-white font-semibold rounded-lg shadow-lg transition-all duration-200 transform hover:scale-[1.02]">
           <a class="inline-flex items-center justify-center gap-2">
             <!-- <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg> -->
