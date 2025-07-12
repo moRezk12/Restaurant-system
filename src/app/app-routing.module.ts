@@ -26,6 +26,7 @@ import { DetailsForonetaskComponent } from './Components/task/details-foronetask
 import { CreateUserComponent } from './Components/Users/create-user/create-user.component';
 import { CreateSiteComponent } from './Components/Site/create-site/create-site.component';
 import { CreateGroupComponent } from './Components/Groups/create-group/create-group.component';
+import { ConfirmepasswordComponent } from './Components/Auth/confirmepassword/confirmepassword.component';
 
 const routes: Routes = [
 
@@ -34,7 +35,10 @@ const routes: Routes = [
       {path : '' , redirectTo: 'login', pathMatch: 'full'},
       {path: 'login' , component: LoginComponent},
       {path: 'register' , component: RegisterComponent},
-      {path: 'forgetpassword' , component: ForgetpasswordComponent}]
+      {path: 'forgetpassword' , component: ForgetpasswordComponent},
+      {path: 'confirmepassword' , component: ConfirmepasswordComponent}
+
+    ]
   },
 
   {path: '', component : BlankLayoutComponent,

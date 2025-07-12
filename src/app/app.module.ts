@@ -40,6 +40,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { AuthInterceptor } from './Core/Interceptor/sendToken/auth.interceptor';
 import { SpinnerInterceptor } from './Core/Interceptor/loading/spinner.interceptor';
+import { ConfirmepasswordComponent } from './Components/Auth/confirmepassword/confirmepassword.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -77,7 +78,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DetailsForonetaskComponent,
     CreateUserComponent,
     CreateSiteComponent,
-    CreateGroupComponent
+    CreateGroupComponent,
+    ConfirmepasswordComponent
   ],
   imports: [
     BrowserModule,

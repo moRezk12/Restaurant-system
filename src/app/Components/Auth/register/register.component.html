@@ -61,9 +61,13 @@
             <span
               class="py-2 px-3 flex items-center border border-gray-200 rounded-l-lg bg-gray-100 text-gray-600 text-sm">https://</span>
             <input type="text" placeholder="example" formControlName="subdomain"
-              class="py-2 w-full border-y border-gray-200 px-4 focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm" />
+              class="py-2 w-full border-y border-gray-200 px-4 outline-none  text-sm" />
             <span
               class="py-2 px-3 flex items-center border border-gray-200 rounded-r-lg bg-gray-100 text-gray-600 text-sm">domain.com</span>
+          </div>
+          <div *ngIf="registerForm.get('subdomain')?.touched && registerForm.get('subdomain')?.invalid"
+            class="text-red-500 text-sm">
+            <div *ngIf="registerForm.get('subdomain')?.errors?.['required']">Domain is required.</div>
           </div>
         </div>
 
@@ -72,7 +76,7 @@
           <label class="text-[20px] font-medium text-gray-700 flex items-center gap-2">Password</label>
           <div class="relative">
             <input [type]="showPassword ? 'text' : 'password'" placeholder="••••••••" formControlName="password"
-              class="relative w-full py-2 border border-gray-200 rounded-lg px-4 pr-12 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+              class="relative w-full py-2 border border-gray-200 rounded-lg px-4 pr-12 outline-none " />
             <i class="absolute top-1/2 transform -translate-y-1/2 text-gray-600 cursor-pointer"
               [ngClass]="[showPassword ? 'fas fa-eye-slash' : 'fas fa-eye', lang === 'ar' ? 'left-3' : 'right-3']"
               (click)="togglePassword()"></i>
@@ -99,7 +103,7 @@
           <div class="relative">
             <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="••••••••"
               formControlName="confirmPassword"
-              class="relative w-full py-2 border border-gray-200 rounded-lg px-4 pr-12 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+              class="relative w-full py-2 border border-gray-200 rounded-lg px-4 pr-12 outline-none " />
             <i class="absolute top-1/2 transform -translate-y-1/2 text-gray-600 cursor-pointer"
               [ngClass]="[showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye', lang === 'ar' ? 'left-3' : 'right-3']"
               (click)="toggleConfirmPassword()"></i>

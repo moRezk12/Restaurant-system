@@ -19,4 +19,14 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/registerRestaurant`, body);
   }
 
+  // forgetPassword
+  forgetPassword(body : any ) {
+    return this.http.post(`${environment.apiUrl}/auth/forgetPassword`, body);
+  }
+
+  // confirmPassword
+  confirmPassword(body : any ) {
+    return this.http.post(`${environment.apiUrl}/auth/confirmPassword`, body);
+  }
+
 }
