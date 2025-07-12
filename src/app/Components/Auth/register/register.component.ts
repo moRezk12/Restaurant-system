@@ -88,46 +88,58 @@ ngOnInit(): void {
 
   // ✅ إرسال الفورم
   onSubmit() {
+    localStorage.setItem('email', this.registerForm.value.email);
     if (this.registerForm.valid) {
-      console.log('✅ Final Form Data:', this.registerForm.value);
       this._authService.register(this.registerForm.value).subscribe({
         next: (res : any ) => {
           console.log(res);
-          Swal.fire({
-              icon: 'success',
-              title: 'Success',
-              text: res.message.message || 'User created successfully'  ,
-              confirmButtonColor: '#28a745',
-              confirmButtonText: 'OK',
-              timer: 3000, // الوقت بالـ milliseconds (3 ثواني)
-              timerProgressBar: true, // شريط وقت العد التنازلي
-              customClass: {
-                confirmButton: 'mySuccess'
-              }
-          }).then(() => {
-            this.route.navigate(['/login']);
-          });
+          this.swalSuccess(res.message.message);
+
         },
         error: (err) => {
           console.log(err);
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: err.error.message || 'An error occurred'  ,
-            confirmButtonColor: '#dc3545',
-            confirmButtonText: 'OK',
-            timer: 3000, // الوقت بالـ milliseconds (3 ثواني)
-            timerProgressBar: true, // شريط وقت العد التنازلي
-            allowOutsideClick: false, // ما يختفيش بالضغط بره
-            customClass: {
-              confirmButton: 'myError'
-            }
-          });
+
+          this.swalError(err.error.message);
+
         }
       });
     } else {
-
       this.registerForm.markAllAsTouched();
+      this.swalError('Please fill all required fields');
     }
   }
+
+
+  swalSuccess( message : any ) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: message || 'Check your email '  ,
+        confirmButtonColor: '#28a745',
+        confirmButtonText: 'OK',
+        timerProgressBar: true,
+        customClass: {
+          confirmButton: 'mySuccess'
+        }
+      }).then(() => {
+        this.route.navigate(['/verifyemail']);
+      })
+    }
+
+    swalError( message : any ) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: message || 'An error occurred'  ,
+        confirmButtonColor: '#dc3545',
+        confirmButtonText: 'OK',
+        timerProgressBar: true,
+        customClass: {
+          confirmButton: 'myError'
+        }
+      })
+    }
+
+
+
 }

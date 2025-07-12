@@ -27,6 +27,7 @@ import { CreateUserComponent } from './Components/Users/create-user/create-user.
 import { CreateSiteComponent } from './Components/Site/create-site/create-site.component';
 import { CreateGroupComponent } from './Components/Groups/create-group/create-group.component';
 import { ConfirmepasswordComponent } from './Components/Auth/confirmepassword/confirmepassword.component';
+import { VerifyemailComponent } from './Components/Auth/verifyemail/verifyemail.component';
 
 const routes: Routes = [
 
@@ -36,7 +37,8 @@ const routes: Routes = [
       {path: 'login' , component: LoginComponent},
       {path: 'register' , component: RegisterComponent},
       {path: 'forgetpassword' , component: ForgetpasswordComponent},
-      {path: 'confirmepassword' , component: ConfirmepasswordComponent}
+      {path: 'confirmepassword' , component: ConfirmepasswordComponent},
+      {path: 'verifyemail' , component: VerifyemailComponent }
 
     ]
   },

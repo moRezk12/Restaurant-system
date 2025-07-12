@@ -1,16 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Core/Services/auth/auth.service';
 import { LanguageService } from 'src/app/Core/Services/Language/language.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-confirmepassword',
   templateUrl: './confirmepassword.component.html',
   styleUrls: ['./confirmepassword.component.css']
 })
-export class ConfirmepasswordComponent {
+export class ConfirmepasswordComponent implements OnInit {
 
+
+  timer: number = 120; // 2 دقائق = 120 ثانية
+  interval: any;
+  showResend: boolean = false;
 
   loginForm!: FormGroup;
   lang: string = 'en';
@@ -23,70 +28,116 @@ export class ConfirmepasswordComponent {
     this.languageService.getLanguage().subscribe(lang => this.lang = lang);
   }
 
+  email : string = '' ;
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       code: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required , Validators.minLength(8) , Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/)]],
     });
 
-      // Check if the value is a phone number
-    this.loginForm.get('phone')?.valueChanges.subscribe(value => {
-      if (this.isPhoneNumber(value)) {
-        if (!value.startsWith('+966')) {
-          this.loginForm.patchValue({ phone: `+966${value}` }, { emitEvent: false });
-        }
-      }
-    });
-
+    this.email = localStorage.getItem('email') || '';
+    this.startTimer(); // تشغيل المؤقت عند تحميل الصفحة
   }
 
-  isPhoneNumber(value: string): boolean {
-    return /^[0-9]{1,}$/.test(value);
-  }
+
 
   // Login
-  ForgetPass() {
-
-  //   if (this.loginForm.valid) {
-  //     const data = this.loginForm.value;
-  //     this._loginService.forgetpass(data).subscribe({
-  //       next : (res : any ) => {
-  //         Swal.fire({
-  //           icon: 'success',
-  //           title: 'Success',
-  //           text: res.message,
-  //           confirmButtonColor: '#28a745',
-  //           confirmButtonText: 'OK',
-  //           timer: 2000,
-  //           timerProgressBar: true,
-  //         }).then(() => {
-  //           localStorage.setItem('phone', this.loginForm.value.phone);
-  //           this.router.navigate(['/confirmpass']);
-  //         });
-  //       },
-  //       error : (err) => {
-  //         Swal.fire({
-  //           icon: 'error',
-  //           title: err.error?.message,
-  //           confirmButtonColor: '#d33',
-  //           confirmButtonText: 'Close',
-  //           timer: 2000,
-  //           timerProgressBar: true,
-  //         });
-  //       }
-  //     })
-  //   }else {
-  //     this.loginForm.markAllAsTouched();
-  //   }
+  confirmePass() {
+    const data = {
+      ...this.loginForm.value,
+      email: this.email
+    };
+    if (data) {
+      this._loginService.confirmPassword(data).subscribe({
+        next : (res : any ) => {
+          this.swalSuccess(res);
+        },
+        error : (err) => {
+          this.swalError(err.error.message);
+        }
+      })
+    }else {
+      this.loginForm.markAllAsTouched();
+    }
 
   }
 
+  // يحوّل الثواني لدقيقة:ثانية
+  get timerDisplay(): string {
+    const minutes = Math.floor(this.timer / 60);
+    const seconds = this.timer % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
 
-  // 👁️‍🗨️ Toggle
+  startTimer() {
+    this.showResend = false;
+    this.timer = 120;
+
+    this.interval = setInterval(() => {
+      this.timer--;
+
+      if (this.timer <= 0) {
+        clearInterval(this.interval);
+        this.showResend = true;
+      }
+    }, 1000);
+  }
+
+
+  resendCode() {
+    console.log(this.email);
+
+    if (this.email) {
+
+      this._loginService.forgetPassword(this.email).subscribe({
+        next : (res : any ) => {
+          this.swalSuccess(res);
+          this.startTimer();
+        },
+        error : (err) => {
+          this.swalError(err.error.message);
+        }
+      })
+    }
+  }
+
+
+  //  Toggle
   showPassword : boolean = false
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
+
+  //
+  swalSuccess( res : any ) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Success',
+      text: res.message.message || 'Change password successfully'  ,
+      confirmButtonColor: '#28a745',
+      confirmButtonText: 'OK',
+      timerProgressBar: true,
+      customClass: {
+        confirmButton: 'mySuccess'
+      }
+    }).then(() => {
+      this.router.navigate(['/login']);
+    })
+  }
+
+  swalError( message : any ) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: message || 'An error occurred'  ,
+      confirmButtonColor: '#dc3545',
+      confirmButtonText: 'OK',
+      timerProgressBar: true,
+      customClass: {
+        confirmButton: 'myError'
+      }
+    })
+  }
 
 }

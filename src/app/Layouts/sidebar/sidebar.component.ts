@@ -66,7 +66,7 @@ export class SidebarComponent {
     open: false,
     children: [
       {
-        name: 'Main Qroup',
+        name: 'Main Group',
         icon: 'fa-object-group',
         link: '/main-group'
       },

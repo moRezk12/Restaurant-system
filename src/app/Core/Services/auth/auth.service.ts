@@ -21,12 +21,17 @@ export class AuthService {
 
   // forgetPassword
   forgetPassword(body : any ) {
-    return this.http.post(`${environment.apiUrl}/auth/forgetPassword`, body);
+    return this.http.post(`${environment.apiUrl}/auth/forgetpassword`, body);
   }
 
   // confirmPassword
   confirmPassword(body : any ) {
-    return this.http.post(`${environment.apiUrl}/auth/confirmPassword`, body);
+    return this.http.post(`${environment.apiUrl}/auth/resetpassword`, body);
+  }
+
+  // confirmPassword
+  verifyEmail(body : any ) {
+    return this.http.post(`${environment.apiUrl}/auth/confirmOTP`, body);
   }
 
 }

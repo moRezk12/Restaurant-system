@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Core/Services/auth/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-forgetpassword',
@@ -10,7 +11,7 @@ import { AuthService } from 'src/app/Core/Services/auth/auth.service';
 })
 export class ForgetpasswordComponent {
 
-  loginForm!: FormGroup;
+  forgetForm!: FormGroup;
 
     constructor(private fb: FormBuilder ,
       private router : Router,
@@ -18,60 +19,62 @@ export class ForgetpasswordComponent {
     ) {}
 
     ngOnInit(): void {
-      this.loginForm = this.fb.group({
+      this.forgetForm = this.fb.group({
         email: ['', [Validators.required , Validators.email]],
       });
 
-       // Check if the value is a phone number
-      this.loginForm.get('phone')?.valueChanges.subscribe(value => {
-        if (this.isPhoneNumber(value)) {
-          if (!value.startsWith('+966')) {
-            this.loginForm.patchValue({ phone: `+966${value}` }, { emitEvent: false });
-          }
-        }
-      });
-
-    }
-
-    isPhoneNumber(value: string): boolean {
-      return /^[0-9]{1,}$/.test(value);
     }
 
     // Login
     ForgetPass() {
 
-    //   if (this.loginForm.valid) {
-    //     const data = this.loginForm.value;
-    //     this._loginService.forgetpass(data).subscribe({
-    //       next : (res : any ) => {
-    //         Swal.fire({
-    //           icon: 'success',
-    //           title: 'Success',
-    //           text: res.message,
-    //           confirmButtonColor: '#28a745',
-    //           confirmButtonText: 'OK',
-    //           timer: 2000,
-    //           timerProgressBar: true,
-    //         }).then(() => {
-    //           localStorage.setItem('phone', this.loginForm.value.phone);
-    //           this.router.navigate(['/confirmepassword']);
-    //         });
-    //       },
-    //       error : (err) => {
-    //         Swal.fire({
-    //           icon: 'error',
-    //           title: err.error?.message,
-    //           confirmButtonColor: '#d33',
-    //           confirmButtonText: 'Close',
-    //           timer: 2000,
-    //           timerProgressBar: true,
-    //         });
-    //       }
-    //     })
-    //   }else {
-    //     this.loginForm.markAllAsTouched();
-    //   }
+      localStorage.setItem('email', this.forgetForm.value.email);
+      console.log(this.forgetForm.value);
+      if (this.forgetForm.valid) {
+
+        this._loginService.forgetPassword(this.forgetForm.value).subscribe({
+          next : (res : any ) => {
+            this.swalSuccess(res);
+          },
+          error : (err) => {
+            this.swalError(err.error.message);
+
+          }
+        })
+      }else {
+        this.forgetForm.markAllAsTouched();
+      }
 
     }
+
+  swalSuccess( res : any ) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Success',
+      text: res.message.message || 'Check your email '  ,
+      confirmButtonColor: '#28a745',
+      confirmButtonText: 'OK',
+      timerProgressBar: true,
+      customClass: {
+        confirmButton: 'mySuccess'
+      }
+    }).then(() => {
+      this.router.navigate(['/confirmepassword']);
+    })
+  }
+
+  swalError( message : any ) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: message || 'An error occurred'  ,
+      confirmButtonColor: '#dc3545',
+      confirmButtonText: 'OK',
+      timerProgressBar: true,
+      customClass: {
+        confirmButton: 'myError'
+      }
+    })
+  }
 
 }

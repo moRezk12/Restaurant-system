@@ -41,6 +41,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { AuthInterceptor } from './Core/Interceptor/sendToken/auth.interceptor';
 import { SpinnerInterceptor } from './Core/Interceptor/loading/spinner.interceptor';
 import { ConfirmepasswordComponent } from './Components/Auth/confirmepassword/confirmepassword.component';
+import { VerifyemailComponent } from './Components/Auth/verifyemail/verifyemail.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -79,7 +80,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CreateUserComponent,
     CreateSiteComponent,
     CreateGroupComponent,
-    ConfirmepasswordComponent
+    ConfirmepasswordComponent,
+    VerifyemailComponent
   ],
   imports: [
     BrowserModule,

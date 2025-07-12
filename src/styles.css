@@ -44,3 +44,32 @@ button {
   background-color: #28a745 !important;
   color: white !important;
 }
+.mywarning {
+  background-color: #4cc3eb !important;
+  color: white !important;
+}
+
+.btndelete {
+  /* bg-red-500 text-white hover:bg-red-700 py-[5px] text-[14px] px-[22px] rounded-[10px] */
+  background: #dc2626;
+  color: white;
+  font-size: 14px;
+  padding: 5px 22px;
+  border-radius: 10px;
+  transition: all 0.5s ease-in-out;
+}
+.btndelete:hover {
+  background: #ef4444;
+}
+.btnedit {
+  /* bg-green-500 text-white hover:bg-green-700 mb-[10px] py-[5px] text-[14px] px-[20px] rounded-[10px] */
+  background: #16a34a;
+  color: white;
+  font-size: 14px;
+  padding: 5px 20px;
+  border-radius: 10px;
+  transition: all 0.5s ease-in-out;
+}
+.btnedit:hover {
+  background: #22c55e;
+}

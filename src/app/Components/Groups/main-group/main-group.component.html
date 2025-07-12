@@ -19,7 +19,9 @@
       class="text-black bg-white text-[20px] shadow-lg font-medium rounded-md p-4 flex justify-between items-center  ">
       <div class="">
         <h3>{{ item.name }}</h3>
-        <p> {{ item.value }} </p>
+        <p *ngIf="item.name === 'Main Groups'" > {{totalMainGroups}} </p>
+        <p *ngIf="item.name === 'SubGroups'" > {{totalSubGroups}} </p>
+        <p *ngIf="item.name === 'Questions'" > 10</p>
       </div>
       <div>
         <div class="w-fit">
@@ -32,123 +34,40 @@
 
   <div class="bg-gray-200 shadow-lg rounded-[10px] p-4">
     <div class="mb-[20px]">
-      <input type="text" placeholder="Search"
+      <input type="text" placeholder="Search By Main Group" [(ngModel)]="searchTerm"
         class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
     </div>
     <div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        <div class="flex justify-between items-center bg-white shadow-lg rounded-[10px] p-3">
+        <div *ngFor="let item of search"  class="flex justify-between items-center bg-white shadow-lg rounded-[10px] p-3">
           <div>
-            <h3 class="text-[18px] md:text-[25px] font-bold text-gray-800">
-              Daily habits
+            <h3 class="text-[18px] md:text-[22px] font-bold text-gray-700">
+              {{ item.name }}
             </h3>
-            <p class="text-[15px] md:text-[18px] font-medium  ">
-              Subgroup: 2
+            <p class="text-[15px] md:text-[18px] font-medium text-gray-600 ">
+              Subgroup: {{ item.subGroupCount}}
             </p>
-            <p class="text-[15px] md:text-[18px] font-medium ">
+            <p class="text-[15px] md:text-[18px] font-medium text-gray-600">
               Questions: 10
             </p>
           </div>
           <div class="">
             <div class="w-fit">
-              <button
-                class="bg-green-500 text-white hover:bg-green-700 mb-[10px] py-[5px] text-[18px] px-[20px] rounded-[10px] "
+              <button (click)="editMainGroup(item)"
+                class="btnedit mb-[10px]"
                 title="Edit">
                 <i class="fas fa-edit"></i>
               </button>
             </div>
             <div class="w-fit">
-              <button class="bg-red-500 text-white hover:bg-red-700 py-[5px] text-[18px] px-[22px] rounded-[10px]"
+              <button class="btndelete" (click)="deleteMainGroup(item)"
                 title="Delete">
                 <i class="fas fa-trash-alt"></i>
               </button>
             </div>
           </div>
         </div>
-        <div class="flex justify-between items-center bg-white shadow-lg rounded-[10px] p-3">
-          <div>
-            <h3 class="text-[18px] md:text-[25px] font-bold text-gray-800">
-              Daily habits
-            </h3>
-            <p class="text-[15px] md:text-[18px] font-medium  ">
-              Subgroup: 2
-            </p>
-            <p class="text-[15px] md:text-[18px] font-medium ">
-              Questions: 10
-            </p>
-          </div>
-          <div class="">
-            <div class="w-fit">
-              <button
-                class="bg-green-500 text-white hover:bg-green-700 mb-[10px] py-[5px] text-[18px] px-[20px] rounded-[10px] "
-                title="Edit">
-                <i class="fas fa-edit"></i>
-              </button>
-            </div>
-            <div class="w-fit">
-              <button class="bg-red-500 text-white hover:bg-red-700 py-[5px] text-[18px] px-[22px] rounded-[10px]"
-                title="Delete">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="flex justify-between items-center bg-white shadow-lg rounded-[10px] p-3">
-          <div>
-            <h3 class="text-[18px] md:text-[25px] font-bold text-gray-800">
-              Daily habits
-            </h3>
-            <p class="text-[15px] md:text-[18px] font-medium  ">
-              Subgroup: 2
-            </p>
-            <p class="text-[15px] md:text-[18px] font-medium ">
-              Questions: 10
-            </p>
-          </div>
-          <div class="">
-            <div class="w-fit">
-              <button
-                class="bg-green-500 text-white hover:bg-green-700 mb-[10px] py-[5px] text-[18px] px-[20px] rounded-[10px] "
-                title="Edit">
-                <i class="fas fa-edit"></i>
-              </button>
-            </div>
-            <div class="w-fit">
-              <button class="bg-red-500 text-white hover:bg-red-700 py-[5px] text-[18px] px-[22px] rounded-[10px]"
-                title="Delete">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="flex justify-between items-center bg-white shadow-lg rounded-[10px] p-3">
-          <div>
-            <h3 class="text-[18px] md:text-[25px] font-bold text-gray-800">
-              Daily habits
-            </h3>
-            <p class="text-[15px] md:text-[18px] font-medium  ">
-              Subgroup: 2
-            </p>
-            <p class="text-[15px] md:text-[18px] font-medium ">
-              Questions: 10
-            </p>
-          </div>
-          <div class="">
-            <div class="w-fit">
-              <button
-                class="bg-green-500 text-white hover:bg-green-700 mb-[10px] py-[5px] text-[18px] px-[20px] rounded-[10px] "
-                title="Edit">
-                <i class="fas fa-edit"></i>
-              </button>
-            </div>
-            <div class="w-fit">
-              <button class="bg-red-500 text-white hover:bg-red-700 py-[5px] text-[18px] px-[22px] rounded-[10px]"
-                title="Delete">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -179,10 +98,10 @@
     </div>
 
     <!-- النموذج -->
-    <form>
+    <form [formGroup]="mainGroupForm"  (ngSubmit)="onSubmit()" >
       <div class="mb-4 space-y-2 ">
         <label class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">Name :</label>
-        <input type="text"
+        <input type="text" formControlName="name"
           class="w-full h-12 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none ">
       </div>
 
@@ -190,7 +109,7 @@
         <label class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">
           Status :
           <div class="relative inline-block w-12 h-6">
-            <input type="checkbox" name="status" class="peer opacity-0 w-0 h-0" [(ngModel)]="status"
+            <input type="checkbox" formControlName="status" name="status" class="peer opacity-0 w-0 h-0"
               (ngModelChange)="logStatus($event)" />
             <span
               class="absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition peer-checked:bg-green-500"></span>
@@ -200,11 +119,12 @@
           </div>
         </label>
       </div>
-      <button type="submit"
-        class="w-[60%] md:w-[20%] text-[18px] md:text-[22px] font-medium bg-primary text-white py-2 px-4 rounded-lg">
+      <button type="submit" [disabled]="mainGroupForm.invalid"
+        [ngClass]="{ 'opacity-50 cursor-not-allowed ': mainGroupForm.invalid , ' hover:scale-[1.02] ': !mainGroupForm.invalid }"
+        class="w-[60%] md:w-[40%] text-[18px] md:text-[22px] font-medium bg-primary text-white py-2 px-4 rounded-lg">
         <i class="fas fa-save mx-[10px] "></i> Save
       </button>
-      <button class="mx-[12px] text-[18px] md:text-[22px] font-medium bg-gray-300 text-gray-800 py-2 px-4 rounded-lg">
+      <button type="button" (click)="closePopup()" class="mx-[12px] text-[18px] md:text-[22px] font-medium bg-gray-300 text-gray-800 py-2 px-4 rounded-lg">
         Close
       </button>
     </form>
