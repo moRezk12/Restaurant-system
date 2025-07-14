@@ -19,6 +19,11 @@ export class SubgroupService {
     return this.http.get(`${environment.apiUrl}/auth/getSubGroupsForUser`);
   }
 
+  // Get All Sub group By Main Group id
+  getSubGroupsByMainGroupId(mainGroupId: number) {
+    return this.http.get(`${environment.apiUrl}/auth/getSubGroupsByMainGroup/${mainGroupId}`);
+  }
+
   // Create Sub group
   createSubGroup(body : any ) {
     return this.http.post(`${environment.apiUrl}/auth/createSubGroup`, body);

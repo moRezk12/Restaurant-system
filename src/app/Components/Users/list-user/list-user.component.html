@@ -1,6 +1,6 @@
 <section>
   <div class="flex justify-between items-center">
-    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800 "  >
+    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800 ">
       <i class="fas fa-users text-white bg-primary rounded-md p-2 "></i>
       Users
     </h1>
@@ -32,7 +32,7 @@
   <div class="bg-white shadow-lg rounded-[10px] p-4 ">
 
     <div class="flex flex-col-reverse sm:flex-row justify-between items-center gap-3 mb-[20px] ">
-      <div class="text-[15px] md:text-[18px] flex items-center gap-2 w-full ">
+      <!-- <div class="text-[15px] md:text-[18px] flex items-center gap-2 w-full ">
         <p class=" ">
           Show
         </p>
@@ -46,12 +46,12 @@
         <p>
           Input
         </p>
-      </div>
+      </div> -->
       <div class="flex items-center justify-start gap-2 w-full ">
         <p class=" text-[15px] md:text-[18px] ">
           Search
         </p>
-        <input type="text" placeholder="Search"
+        <input type="text" placeholder="Search" [(ngModel)]="searchText"
           class="border border-gray-200 outline-none w-full rounded-[10px] px-4 py-2">
       </div>
     </div>
@@ -66,60 +66,34 @@
             <th class="py-3 px-4 border-b ">#</th>
             <th class="py-3 px-4 border-b">Name</th>
             <th class="py-3 px-4 border-b">Email</th>
-            <th class="py-3 px-4 border-b">Type</th>
-            <th class="py-3 px-4 border-b">Permissions </th>
+            <th class="py-3 px-4 border-b">Phone</th>
+            <!-- <th class="py-3 px-4 border-b">Type</th> -->
+            <!-- <th class="py-3 px-4 border-b">Permissions </th> -->
             <th class="py-3 px-4 border-b">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="hover:bg-gray-100 transition text-center whitespace-nowrap ">
-            <td class="py-3 px-4 border-b">1</td>
-            <td class="py-3 px-4 border-b">Mohamed</td>
-            <td class="py-3 px-4 border-b">mohamed&#64;gmail.com</td>
-            <td class="py-3 px-4 border-b  ">
+          <tr *ngFor="let user of search; let i = index"
+            class="hover:bg-gray-100 transition text-center whitespace-nowrap ">
+            <td class="py-3 px-4 border-b">{{ i + 1 }}</td>
+            <td class="py-3 px-4 border-b">{{ user.name }}</td>
+            <td class="py-3 px-4 border-b">{{ user.email }}</td>
+            <td class="py-3 px-4 border-b">{{ user.phone }}</td>
+            <!-- <td class="py-3 px-4 border-b  ">
               <span class="text-white bg-gray-500 rounded-[15px] px-3 py-2">normal</span>
             </td>
             <td class="py-3 px-4 border-b">
               <span class="text-white bg-black rounded-[15px] px-3 py-2">Public official</span>
-            </td>
+            </td> -->
             <td class="py-3 px-4 border-b space-x-3">
               <div class="flex items-center justify-center gap-3 ">
-                <!-- <button class="text-blue-500 hover:text-blue-700" title="View">
-                <i class="fas fa-eye"></i>
-              </button> -->
-                <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
+                <button (click)="viewUser(user)" class="text-blue-500 hover:text-blue-700" title="View">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button (click)="editUser(user)" class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
                   <i class="fas fa-edit"></i>
                 </button>
-                <button class="text-red-500 hover:text-red-700" title="Delete">
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-
-              </div>
-            </td>
-          </tr>
-          <tr class="hover:bg-gray-50 transition text-center ">
-            <td class="py-3 px-4 border-b">2</td>
-            <td class="py-3 px-4 border-b">Mohamed</td>
-            <td class="py-3 px-4 border-b">
-              <span class="text-red-500">mohamed&#64;gmail.com</span>
-            </td>
-            <td class="py-3 px-4 border-b  ">
-              <span class="text-white bg-gray-700 rounded-[15px] px-3 py-2">Task</span>
-            </td>
-            <td class="py-3 px-4 border-b">
-              <span class="text-gray-400 rounded-[15px] px-3 py-2">
-                There are no permissions
-              </span>
-            </td>
-            <td class="py-3 px-4 border-b space-x-3">
-              <div class="flex items-center justify-center gap-3 ">
-                <!-- <button class="text-blue-500 hover:text-blue-700" title="View">
-                <i class="fas fa-eye"></i>
-              </button> -->
-                <button class="text-green-500 hover:text-green-700 mx-[5px] " title="Edit">
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button class="text-red-500 hover:text-red-700" title="Delete">
+                <button (click)="deleteUser(user)" class="text-red-500 hover:text-red-700" title="Delete">
                   <i class="fas fa-trash-alt"></i>
                 </button>
 
@@ -177,7 +151,7 @@
 
 <!-- popup -->
 
-<div  class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500"
+<div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500"
   [ngClass]="{ 'opacity-100 pointer-events-auto  ': showPopup, 'opacity-0 pointer-events-none': !showPopup }">
   <!-- الخلفية السوداء -->
   <div (click)="closePopup()" class="absolute inset-0 bg-gray-900 transition-opacity duration-500 "
@@ -187,7 +161,7 @@
   <!-- (click)="$event.stopPropagation()" -->
   <div
     class="bg-white rounded-xl shadow-xl p-[20px] transform transition-all duration-500 ease-in-out overflow-y-auto max-h-[90vh] scrollbar-hide"
-    [ngClass]="{ 'scale-100 opacity-100 w-[95%] md:w-[50%] ': showPopup, 'w-0 scale-95 opacity-0': !showPopup }">
+    [ngClass]="{ 'scale-100 opacity-100 w-[95%] md:w-[70%] ': showPopup, 'w-0 scale-95 opacity-0': !showPopup }">
     <!-- رأس النافذة -->
     <div class="relative mb-4">
       <h3 class="text-xl font-semibold text-gray-800">Add New Group</h3>
@@ -196,7 +170,7 @@
     </div>
 
     <!-- النموذج -->
-    <form action="">
+    <form action="" [formGroup]="UserForm" (submit)="createUser()">
       <!-- Basic Data -->
       <div>
         <h4 class="text-[18px] md:text-[25px] font-bold text-gray-800">
@@ -206,13 +180,15 @@
           <!-- Name -->
           <div class="w-full">
             <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Name</label>
-            <input type="text" placeholder="Enter Your Name"
+            <input type="text" placeholder="Enter Your Name" formControlName="name"
+              [ngClass]="{'border-red-500': UserForm.get('name')?.invalid && UserForm.get('name')?.touched}"
               class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none ">
           </div>
           <!-- Email -->
           <div class="w-full">
             <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Email</label>
-            <input type="text" placeholder="Enter Your Email"
+            <input type="text" placeholder="Enter Your Email" formControlName="email"
+              [ngClass]="{'border-red-500': UserForm.get('email')?.invalid && UserForm.get('email')?.touched}"
               class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none ">
           </div>
         </div>
@@ -220,25 +196,52 @@
           <!-- password -->
           <div class="w-full">
             <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Password</label>
-            <input type="password" placeholder="Enter Your Password"
+            <input type="password" placeholder="Enter Your Password" formControlName="password"
+              [ngClass]="{'border-red-500': UserForm.get('password')?.invalid && UserForm.get('password')?.touched}"
               class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none ">
           </div>
           <!-- Phone -->
           <div class="w-full">
             <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Phone</label>
-            <input type="text" placeholder="Enter Your Phone"
+            <input type="text" placeholder="Enter Your Phone" formControlName="phone"
+              [ngClass]="{'border-red-500': UserForm.get('phone')?.invalid && UserForm.get('phone')?.touched}"
               class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none ">
           </div>
         </div>
         <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mt-[20px] ">
           <!-- Image -->
-          <div class="w-full">
-            <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Image</label>
-            <input type="file"
-              class="w-full  border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 py-2 focus:outline-none ">
+                  <div class="w-full flex flex-col">
+          <label class="text-[18px] font-medium text-gray-700 mb-1">Upload Images</label>
+
+          <!-- زر رفع الصور -->
+          <div class="relative border-2 border-dashed border-blue-500 rounded-lg p-4 flex flex-col items-center justify-center
+                      cursor-pointer bg-blue-50 transition">
+            <input type="file" (change)="onFileSelected($event)" accept=".jpg, .jpeg, .png, .gif" multiple
+              class="absolute inset-0 opacity-0 cursor-pointer"  />
+
+            <svg *ngIf="imagesArray.length < 3" class="w-12 h-12 text-blue-500 mb-2" fill="none" stroke="currentColor"
+              stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+            </svg>
+
+            <p class="text-gray-600" *ngIf="imagesArray.length === 0">Click to upload (Max: 3 images)</p>
+
+            <!-- عرض الصور -->
+            <div class="flex gap-2 mt-4">
+              <div *ngFor="let img of imagesArray.value; let i = index" class="relative w-24 h-24">
+                <img [src]="img" class="w-full h-full object-cover rounded-lg border border-gray-300 shadow">
+                <button type="button" (click)="removeImage(i)"
+                  class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition">
+                  ✕
+                </button>
+              </div>
+            </div>
           </div>
+        </div>
+
+
           <!-- Mission -->
-          <div class="w-full">
+          <!-- <div class="w-full">
             <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Mission</label>
             <select name="" id=""
               class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
@@ -246,7 +249,7 @@
               <option value="">Normal</option>
               <option value="">Premium</option>
             </select>
-          </div>
+          </div> -->
         </div>
       </div>
       <hr class="my-[15px] bg-gray-500 w-full h-[2px]">
@@ -257,7 +260,7 @@
         </h4>
         <div class="flex flex-col sm:flex-row  justify-between items-center gap-3 mt-[15px] ">
           <!-- Validity set -->
-          <div class="w-full">
+          <!-- <div class="w-full">
             <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151]">Validity set</label>
             <select name="" id=""
               class="w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
@@ -265,7 +268,7 @@
               <option value="">Normal</option>
               <option value="">Premium</option>
             </select>
-          </div>
+          </div> -->
           <!-- Powers -->
           <div class="w-full" #powersBox>
             <label class="text-[18px] md:text-[20px] font-medium text-[#374151]">Powers</label>
@@ -277,7 +280,7 @@
                   class="flex items-center bg-blue-100 text-blue-700 text-sm px-2 py-1 rounded-full">
                   {{ item }}
                   <button (click)="removePower(item); $event.stopPropagation()"
-                    class="mx-2 text-red-500 hover:text-red-700 text-xs">
+                    class="mx-2 text-red-500 hover:text-red-700 text-sm">
                     &times;
                   </button>
                 </span>
@@ -285,18 +288,17 @@
               </div>
               <ul *ngIf="dropdownOpenPowers"
                 class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-60 overflow-auto">
-                <li *ngFor="let option of allOptionsPowers" (click)="selectPower(option)"
+                <li *ngFor="let option of allPermissions" (click)="selectPower(option)"
                   [class.opacity-50]="isPowerSelected(option)" [class.pointer-events-none]="isPowerSelected(option)"
                   class="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
-                  {{ option }}
+                  {{ option.name }}
                 </li>
               </ul>
             </div>
           </div>
 
         </div>
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mt-[15px] ">
-          <!-- Main group -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mt-[15px]">
           <!-- Main group -->
           <div class="w-full" #mainGroupBox>
             <label class="text-[18px] md:text-[20px] font-medium text-[#374151]">Main group</label>
@@ -308,7 +310,7 @@
                   class="flex items-center bg-blue-100 text-blue-700 text-sm px-2 py-1 rounded-full">
                   {{ item }}
                   <button (click)="removeMainGroup(item); $event.stopPropagation()"
-                    class="mx-2 text-red-500 hover:text-red-700 text-xs">
+                    class="mx-2 text-red-500 hover:text-red-700 text-sm">
                     &times;
                   </button>
                 </span>
@@ -316,9 +318,9 @@
               </div>
               <ul *ngIf="dropdownOpenMainGroup"
                 class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-60 overflow-auto">
-                <li *ngFor="let option of allOptionsMainGroup" (click)="selectMainGroup(option.name)"
-                  [class.opacity-50]="isMainGroupSelected(option.name)"
-                  [class.pointer-events-none]="isMainGroupSelected(option.name)"
+                <li *ngFor="let option of allOptionsMainGroup" (click)="selectMainGroup(option)"
+                  [class.opacity-50]="isMainGroupSelected(option)"
+                  [class.pointer-events-none]="isMainGroupSelected(option)"
                   class="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
                   {{ option.name }}
                 </li>
@@ -326,7 +328,6 @@
             </div>
           </div>
 
-          <!-- Subgroup -->
           <!-- Subgroup -->
           <div class="w-full" #subGroupBox>
             <label class="text-[18px] md:text-[20px] font-medium text-[#374151]">Subgroup</label>
@@ -337,8 +338,8 @@
                 <span *ngFor="let item of selectedSubgroup"
                   class="flex items-center bg-blue-100 text-blue-700 text-sm px-2 py-1 rounded-full">
                   {{ item }}
-                  <button (click)="removeSubgroup(item); $event.stopPropagation()"
-                    class="mx-2 text-red-500 hover:text-red-700 text-xs">
+                  <button type="button" (click)="removeSubgroup(item); $event.stopPropagation()"
+                    class="mx-2 text-red-500 hover:text-red-700 text-sm">
                     &times;
                   </button>
                 </span>
@@ -350,13 +351,14 @@
                   [class.opacity-50]="isSubgroupSelected(option)"
                   [class.pointer-events-none]="isSubgroupSelected(option)"
                   class="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
-                  {{ option }}
+                  {{ option.name }}
                 </li>
               </ul>
             </div>
           </div>
-
         </div>
+
+
         <div class=" mt-[15px] ">
           <!-- Site permissions -->
           <!-- Site permissions -->
@@ -370,7 +372,7 @@
                   class="flex items-center bg-blue-100 text-blue-700 text-sm px-2 py-1 rounded-full">
                   {{ item }}
                   <button (click)="removeSite(item); $event.stopPropagation()"
-                    class="mx-2 text-red-500 hover:text-red-700 text-xs">
+                    class="mx-2 text-red-500 hover:text-red-700 text-sm">
                     &times;
                   </button>
                 </span>
@@ -379,15 +381,14 @@
               </div>
               <ul *ngIf="dropdownOpenSite"
                 class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-60 overflow-auto">
-                <li *ngFor="let option of allOptionsSite" (click)="selectSite(option)"
+                <li *ngFor="let option of allBranches" (click)="selectSite(option)"
                   [class.opacity-50]="isSiteSelected(option)" [class.pointer-events-none]="isSiteSelected(option)"
                   class="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
-                  {{ option }}
+                  {{ option.branchName }}
                 </li>
               </ul>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -398,12 +399,102 @@
           Save
         </button> -->
 
-        <button type="submit" class="w-full md:w-[30%] text-[18px] md:text-[22px] font-medium bg-primary text-white py-2 px-4 rounded-lg">
-          <i class="fas fa-save mx-[10px] "></i> Save
+        <button type="submit"
+          class="w-full md:w-[30%] text-[18px] md:text-[22px] font-medium bg-primary text-white py-2 px-4 rounded-lg">
+          <i class="fas fa-save mx-[10px] "></i>
+          {{ isEditMode ? 'Update User' : 'Create User' }}
         </button>
 
       </div>
 
     </form>
+  </div>
+</div>
+
+<div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500"
+  [ngClass]="{ 'opacity-100 pointer-events-auto  ': showUser, 'opacity-0 pointer-events-none': !showUser }">
+  <!-- الخلفية السوداء -->
+  <div (click)="toggleUserDetails()" class="absolute inset-0 bg-gray-900 transition-opacity duration-500 "
+    [ngClass]="{ 'opacity-50': showUser, 'opacity-0': !showUser }"></div>
+
+  <!-- نافذة البوب أب -->
+  <!-- (click)="$event.stopPropagation()" -->
+  <div
+    class="bg-white rounded-xl shadow-xl p-[20px] transform transition-all duration-500 ease-in-out overflow-y-auto max-h-[90vh] scrollbar-hide"
+    [ngClass]="{ 'scale-100 opacity-100 w-[95%] md:w-[70%] ': showUser, 'w-0 scale-95 opacity-0': !showUser }">
+    <!-- رأس النافذة -->
+    <div class="relative mb-4">
+      <!-- <h3 class="text-xl font-semibold text-gray-800">Add New Group</h3> -->
+      <i class="fas fa-times absolute top-0 right-0 bg-gray-300 px-2 py-1 text-gray-800 rounded-[10px] cursor-pointer text-lg"
+        (click)="toggleUserDetails()"></i>
+    </div>
+
+    <div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- صورة المستخدم -->
+        <div class="col-span-1 flex justify-center items-start">
+          <img [src]="selectedUser?.profileImage?.secure_url" alt="User Image"
+            class="w-[160px] h-[160px] object-cover rounded-full border-4 border-blue-500 shadow-lg" />
+        </div>
+
+        <!-- معلومات المستخدم الأساسية -->
+        <div class="col-span-2 space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <p class="text-gray-600 text-sm">Name</p>
+              <p class="font-semibold text-lg text-gray-800">{{ selectedUser?.name }}</p>
+            </div>
+            <div>
+              <p class="text-gray-600 text-sm">Email</p>
+              <p class="font-semibold text-lg text-gray-800">{{ selectedUser?.email }}</p>
+            </div>
+            <div>
+              <p class="text-gray-600 text-sm">Phone</p>
+              <p class="font-semibold text-lg text-gray-800">{{ selectedUser?.phone }}</p>
+            </div>
+          </div>
+
+          <!-- الفروع -->
+          <div>
+            <h4 class="text-lg font-semibold text-blue-600 border-b pb-1 mb-2">Branches</h4>
+            <div class="flex flex-wrap gap-2">
+              <span *ngFor="let b of selectedUser?.branch"
+                class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm shadow-sm">{{ b.branchName }}</span>
+            </div>
+          </div>
+
+          <!-- Main Groups -->
+          <div>
+            <h4 class="text-lg font-semibold text-purple-600 border-b pb-1 mb-2">Main Groups</h4>
+            <div class="flex flex-wrap gap-2">
+              <span *ngFor="let g of selectedUser?.mainGroup"
+                class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm shadow-sm">{{ g.name }}</span>
+            </div>
+          </div>
+
+          <!-- Sub Groups -->
+          <div>
+            <h4 class="text-lg font-semibold text-green-600 border-b pb-1 mb-2">Sub Groups</h4>
+            <div class="flex flex-wrap gap-2">
+              <span *ngFor="let sg of selectedUser?.subGroup"
+                class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm shadow-sm">{{ sg.name }}</span>
+            </div>
+          </div>
+
+          <!-- Permissions -->
+          <div>
+            <h4 class="text-lg font-semibold text-red-600 border-b pb-1 mb-2">Permissions</h4>
+            <div class="flex flex-wrap gap-2">
+              <span *ngFor="let p of selectedUser?.permissions"
+                class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm shadow-sm">{{ p.name  }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
   </div>
 </div>
