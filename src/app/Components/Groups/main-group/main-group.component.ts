@@ -23,7 +23,7 @@ export class MainGroupComponent implements OnInit {
   ngOnInit(): void {
     this.mainGroupForm = this.fb.group({
       name: ['', [Validators.required ]],
-      status: ['', [Validators.required]],
+      status: [false, [Validators.required]],
     });
 
     this.getMainGroups();
@@ -57,7 +57,11 @@ export class MainGroupComponent implements OnInit {
 
   status: boolean = false;
   logStatus(value: boolean) {
-    console.log('New status:', value); // هتطبع true / false حسب الحالة الجديدة
+    console.log('New status:', value);
+    this.status = value;
+      //     this.status = this.mainGroupForm.get('status')?.value;
+      // console.log( "statusfasfasdf "+ this.status);
+
   }
 
   // get main groups
@@ -134,17 +138,22 @@ export class MainGroupComponent implements OnInit {
   selectedId !: number;
   editMainGroup(group : any){
     console.log(group);
+
+    this.logStatus(group.status);
     this.selectedId = group._id;
     this.isEditMode = true;
+    const statusValue = typeof group.status === 'string' ? group.status === 'true' : !!group.status;
+
     this.mainGroupForm.patchValue({
       name: group.name,
-      status: group.status,
-    })
+      status: statusValue,
+    });
+
       this.status = this.mainGroupForm.get('status')?.value;
+      console.log( "status "+ this.status);
 
 
-    console.log( "status "+ this.status);
-    this.logStatus(this.status);
+
     this.showPopup = true;
 
   }

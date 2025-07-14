@@ -15,7 +15,11 @@ export class SubgroupComponent implements OnInit {
   isEditMode: boolean = false;
   showPopup: boolean = false;
 
+  searchTerm : string = '';
+
   allGroups: any[] = [];
+  totalSubGroups! : number ;
+  AllQuetions! : number ;
   selectedId!: number;
 
   constructor(
@@ -29,9 +33,25 @@ export class SubgroupComponent implements OnInit {
     this.getGroups();
   }
 
+  // Search
+  get search() {
+    return (this.allGroups || [])
+      .map((group: any) => {
+        const matchedSubs = group.subGroups?.filter((sub: any) =>
+          sub.name?.toLowerCase().includes(this.searchTerm?.toLowerCase() || '')
+        );
+        return matchedSubs?.length
+          ? { ...group, subGroups: matchedSubs }
+          : null;
+      })
+      .filter((group: any) => group !== null);
+  }
+
+
+
     grid = [
-    {name: 'SubGroups', value: 7 , icon : 'fas fa-sitemap  ', bg: "#22C55E33" , color: "#22C55E"},
-    {name: 'Questions', value: 7 , icon : 'fas fa-question-circle ', bg: "#6366F133" , color: "#6366F1"},
+    {name: 'SubGroups', icon : 'fas fa-sitemap  ', bg: "#22C55E33" , color: "#22C55E"},
+    {name: 'Questions' , icon : 'fas fa-question-circle ', bg: "#6366F133" , color: "#6366F1"},
   ]
 
   initForm() {
@@ -44,7 +64,9 @@ export class SubgroupComponent implements OnInit {
   getGroups() {
     this.mainGroupService.getMainGroups().subscribe({
       next: (res: any) => {
+        console.log(res);
         this.allGroups = res.data;
+        this.totalSubGroups = res.totalSubGroups;
       },
       error: (err) => {
         console.error(err);

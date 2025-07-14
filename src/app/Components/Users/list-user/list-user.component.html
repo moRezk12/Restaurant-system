@@ -177,14 +177,15 @@
 
 <!-- popup -->
 
-<div (click)="closePopup()" class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500"
+<div  class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500"
   [ngClass]="{ 'opacity-100 pointer-events-auto  ': showPopup, 'opacity-0 pointer-events-none': !showPopup }">
   <!-- الخلفية السوداء -->
-  <div class="absolute inset-0 bg-gray-900 transition-opacity duration-500 "
+  <div (click)="closePopup()" class="absolute inset-0 bg-gray-900 transition-opacity duration-500 "
     [ngClass]="{ 'opacity-50': showPopup, 'opacity-0': !showPopup }"></div>
 
   <!-- نافذة البوب أب -->
-  <div (click)="$event.stopPropagation()"
+  <!-- (click)="$event.stopPropagation()" -->
+  <div
     class="bg-white rounded-xl shadow-xl p-[20px] transform transition-all duration-500 ease-in-out overflow-y-auto max-h-[90vh] scrollbar-hide"
     [ngClass]="{ 'scale-100 opacity-100 w-[95%] md:w-[50%] ': showPopup, 'w-0 scale-95 opacity-0': !showPopup }">
     <!-- رأس النافذة -->
@@ -315,11 +316,11 @@
               </div>
               <ul *ngIf="dropdownOpenMainGroup"
                 class="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-60 overflow-auto">
-                <li *ngFor="let option of allOptionsMainGroup" (click)="selectMainGroup(option)"
-                  [class.opacity-50]="isMainGroupSelected(option)"
-                  [class.pointer-events-none]="isMainGroupSelected(option)"
+                <li *ngFor="let option of allOptionsMainGroup" (click)="selectMainGroup(option.name)"
+                  [class.opacity-50]="isMainGroupSelected(option.name)"
+                  [class.pointer-events-none]="isMainGroupSelected(option.name)"
                   class="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
-                  {{ option }}
+                  {{ option.name }}
                 </li>
               </ul>
             </div>

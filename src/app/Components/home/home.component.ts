@@ -17,11 +17,7 @@ export class HomeComponent {
 
   @HostListener('document:click', ['$event.target'])
   handleClickOutside(target: HTMLElement) {
-    if (
-      this.dropdownOpenPowers &&
-      this.powersBox &&
-      !this.powersBox.nativeElement.contains(target)
-    ) {
+    if (this.dropdownOpenPowers && this.powersBox && !this.powersBox.nativeElement.contains(target)) {
       this.dropdownOpenPowers = false;
     }
   }
