@@ -1,6 +1,6 @@
 <section>
   <div class="flex justify-between items-center">
-    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800 ">
+    <h1 class="text-[18px] md:text-[22px] font-bold text-primaryTitle ">
       <i class="fas fa-layer-group text-white bg-primary rounded-md p-2 "></i>
       Main Group
     </h1>
@@ -41,7 +41,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         <div *ngFor="let item of search"  class="flex justify-between items-center bg-white shadow-lg rounded-[10px] p-3">
           <div>
-            <h3 class="text-[18px] md:text-[22px] font-bold text-gray-700">
+            <h3 class="text-[18px] md:text-[22px] font-bold text-textInput">
               {{ item.name }}
             </h3>
             <p class="text-[15px] md:text-[18px] font-medium text-gray-600 ">
@@ -92,8 +92,8 @@
     [ngClass]="{ 'scale-100 opacity-100 w-[95%] md:w-[50%] ': showPopup, 'w-0 scale-95 opacity-0': !showPopup }">
     <!-- رأس النافذة -->
     <div class="relative mb-4">
-      <h3 class="text-xl font-semibold text-gray-800">Add New Group</h3>
-      <i class="fas fa-times absolute top-0 right-0 bg-gray-300 px-2 py-1 text-gray-800 rounded-[10px] cursor-pointer text-lg"
+      <h3 class="text-xl font-semibold text-primaryTitle">Add New Group</h3>
+      <i class="fas fa-times absolute top-0 right-0 bg-gray-300 px-2 py-1 text-primaryTitle rounded-[10px] cursor-pointer text-lg"
         (click)="closePopup()"></i>
     </div>
 
@@ -123,7 +123,7 @@
         class="w-[60%] md:w-[40%] text-[18px] md:text-[22px] font-medium bg-primary text-white py-2 px-4 rounded-lg">
         <i class="fas fa-save mx-[10px] "></i> Save
       </button>
-      <button type="button" (click)="closePopup()" class="mx-[12px] text-[18px] md:text-[22px] font-medium bg-gray-300 text-gray-800 py-2 px-4 rounded-lg">
+      <button type="button" (click)="closePopup()" class="mx-[12px] text-[18px] md:text-[22px] font-medium bg-gray-300 text-primaryTitle py-2 px-4 rounded-lg">
         Close
       </button>
     </form>

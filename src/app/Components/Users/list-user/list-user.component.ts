@@ -27,7 +27,6 @@ export class AddUserComponent implements OnInit {
     private fb: FormBuilder,
     private mainGroup : MaingroupService,
     private siteServices : SiteService ,
-    private subGroup : SubgroupService,
     private userServices : UsersService
   ) {
 

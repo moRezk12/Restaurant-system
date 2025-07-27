@@ -1,6 +1,6 @@
 <section>
   <div class="flex justify-between items-center">
-    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800">
+    <h1 class="text-[18px] md:text-[22px] font-bold text-primaryTitle">
       <i class="fas fa-star text-white bg-primary rounded-md p-2 "></i>
       Question Score
     </h1>
@@ -15,20 +15,20 @@
 
 
   <div class="bg-gray-300 shadow-lg rounded-[10px] p-4 my-[30px] ">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 " >
-      <div class="bg-white shadow-lg rounded-[10px] p-4 flex justify-between items-center " >
-        <div class="" >
-          <h4 class="text-[16px] md:text-[20px] font-bold text-gray-500" >
-            yes Or No
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+      <div *ngFor="let item of allScores" class="bg-white shadow-lg rounded-[10px] p-4 flex justify-between items-center ">
+        <div class="">
+          <h4 class="text-[16px] md:text-[20px] font-bold text-gray-500">
+            {{ item.title }}
           </h4>
-          <p class="text-[14px] md:text-[18px] font-medium text-gray-700 my-[10px] " >
-            Yes - 100
+          <p *ngFor="let item of item.statuses" class="text-[14px] md:text-[18px] font-medium text-textInput my-[10px] ">
+            {{ item.label }} - {{ item.percentage }}
           </p>
-          <p class="text-[14px] md:text-[18px] font-medium text-gray-700 my-[10px] " >
+          <!-- <p class="text-[14px] md:text-[18px] font-medium text-textInput my-[10px] ">
             No - 0
-          </p>
+          </p> -->
         </div>
-        <div class="flex justify-between items-center " >
+        <div class="flex justify-between items-center ">
           <div class="flex flex-col gap-1 text-[13px] md:text-[15px] items-center">
             <button class="bg-green-300 text-white px-4 py-1 rounded-lg hover:bg-green-500 mx-[5px]" title="Edit">
               <i class="fas fa-edit"></i>
@@ -43,3 +43,91 @@
   </div>
 
 </section>
+
+
+
+
+
+
+<!-- popup -->
+
+<div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500"
+  [ngClass]="{ 'opacity-100 pointer-events-auto': showPopup, 'opacity-0 pointer-events-none': !showPopup }">
+
+  <!-- خلفية سوداء شفافة -->
+  <div (click)="closePopup()" class="absolute inset-0 bg-gray-900 transition-opacity duration-500"
+    [ngClass]="{ 'opacity-50': showPopup, 'opacity-0': !showPopup }"></div>
+
+  <!-- نافذة البوب أب -->
+  <div class="bg-white rounded-xl shadow-xl p-6 w-[95%] md:w-[70%] transition-all duration-500 transform ease-in-out
+            overflow-y-auto max-h-[90vh] scrollbar-hide"
+    [ngClass]="{ 'scale-100 opacity-100': showPopup, 'scale-95 opacity-0': !showPopup }">
+
+
+    <!-- رأس -->
+    <div class="relative mb-4">
+      <h3 class="text-xl font-bold text-primaryTitle">Add New Rate</h3>
+      <i class="fas fa-times absolute top-0 right-0 bg-gray-300 px-2 py-1 text-primaryTitle rounded cursor-pointer"
+        (click)="closePopup()"></i>
+    </div>
+
+    <!-- النموذج -->
+    <form [formGroup]="scoreForm" (ngSubmit)="saveQuestions()">
+      <div class="">
+        <!-- اختيار المجموعة -->
+        <div class="mb-4">
+          <label class="block text-textInput font-medium mb-1">Title</label>
+          <input type="text" formControlName="title" class="w-full outline-none border rounded-lg px-4 py-2 text-textInput"
+            placeholder="Enter Title" required />
+        </div>
+      </div>
+
+      <!-- المستويات -->
+      <div formArrayName="statuses">
+        <div *ngFor="let group of statuses.controls; let i = index" [formGroupName]="i"
+          class="border p-4 mb-4 rounded-lg bg-gray-50 relative">
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+            <div>
+              <label class="block text-textInput font-medium mb-1">Level {{ i + 1 }}</label>
+              <input type="text" formControlName="label"
+                class="w-full border rounded-lg outline-none py-2 px-4 text-textInput" placeholder="Level" required />
+            </div>
+            <div>
+              <label class="block text-textInput font-medium mb-1">Score</label>
+              <input type="number" formControlName="percentage"
+                class="w-full border rounded-lg outline-none py-2 px-4 text-textInput" placeholder="percentage" required />
+            </div>
+          </div>
+
+
+          <button type="button" (click)="removeRate(i)"
+            class="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 rounded-full w-8 h-8 flex items-center justify-center">
+            <i class="fas fa-trash-alt text-sm"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- زر إضافة سؤال -->
+      <div class="text-center mb-6">
+        <button type="button" (click)="addRate()"
+          class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg text-lg font-medium">
+          <i class="fas fa-plus mr-2"></i> Add Score
+        </button>
+      </div>
+
+      <!-- أزرار حفظ وإغلاق -->
+      <div class="flex gap-4">
+        <button type="submit" class="bg-primary text-white px-6 py-2 text-lg rounded-lg hover:bg-gold-700">
+          <i class="fas fa-save mr-2"></i> Save
+        </button>
+
+        <button type="button" (click)="closePopup()"
+          class="bg-gray-300 text-primaryTitle px-6 py-2 text-lg rounded-lg hover:bg-gray-400">
+          Close
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>

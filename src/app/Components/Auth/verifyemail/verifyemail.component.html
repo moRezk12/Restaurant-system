@@ -1,4 +1,4 @@
-<div class=" h-[100vh] flex items-center bg-gray-800 justify-between relative">
+<div class=" h-[100vh] flex items-center bg-primaryTitle justify-between relative">
 
 
 
@@ -18,7 +18,7 @@
       <form [formGroup]="loginForm" (ngSubmit)="verifyEmail()" class="">
 
         <div class="w-full space-y-2 mb-[20px]">
-          <label class="text-[20px] font-medium text-gray-700 flex items-center gap-2">Code</label>
+          <label class="text-[20px] font-medium text-textInput flex items-center gap-2">Code</label>
           <input type="text" placeholder="Code" formControlName="code"
             class="w-full py-2 border border-gray-200 rounded-lg px-4 pr-12 outline-none" />
           <div *ngIf="loginForm.get('code')?.touched && loginForm.get('code')?.invalid" class="text-red-500 text-sm">

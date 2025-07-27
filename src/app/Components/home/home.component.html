@@ -1,6 +1,6 @@
 <section>
   <div class="flex justify-between items-center">
-    <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800">
+    <h1 class="text-[18px] md:text-[22px] font-bold text-primaryTitle">
       <i class="fas fa-home text-white bg-primary rounded-md p-2 "></i>
       Home
     </h1>
@@ -33,7 +33,7 @@
   <!-- Last Branches Report -->
   <div>
     <div class="text-center mb-[20px] ">
-      <h4 class="text-[20px] md:text-[25px] font-bold text-gray-800">
+      <h4 class="text-[20px] md:text-[25px] font-bold text-primaryTitle">
         Latest branch reviews
       </h4>
     </div>
@@ -58,7 +58,7 @@
           </svg>
           <span class="absolute text-xl font-bold">{{ item.percent }}%</span>
         </div>
-        <p class="mt-4 font-semibold text-gray-700">{{ item.label }}</p>
+        <p class="mt-4 font-semibold text-textInput">{{ item.label }}</p>
       </div>
     </div> -->
 
@@ -85,7 +85,7 @@
         </div>
 
         <!-- 🔢 النسبة -->
-        <div class="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 mt-2 text-xl font-bold text-gray-700">
+        <div class="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 mt-2 text-xl font-bold text-textInput">
           {{ percentCircle }}%
         </div>
 
@@ -117,21 +117,21 @@
           <div *ngIf="hovered" [ngStyle]="{
         top: tooltipY + 'px',
         left: tooltipX + 'px'
-      }" class="absolute z-50 text-xs font-medium px-2 py-1 rounded bg-gray-800 text-white whitespace-nowrap pointer-events-none transition-all duration-300 opacity-0 scale-95 animate-fadeIn">
+      }" class="absolute z-50 text-xs font-medium px-2 py-1 rounded bg-primaryTitle text-white whitespace-nowrap pointer-events-none transition-all duration-300 opacity-0 scale-95 animate-fadeIn">
             Mood {{ hovered === 'orange' ? percent : 100 - percent }}%
           </div>
         </div>
         <div class="text-center">
-          <h3 class="text-[18px] md:text-[25px] font-bold text-gray-800 mt-[15px] ">
+          <h3 class="text-[18px] md:text-[25px] font-bold text-primaryTitle mt-[15px] ">
             Mood
           </h3>
         </div>
         <hr class="my-[15px] bg-gray-500 w-full h-[2px]">
         <div class="flex justify-center gap-4 items-center ">
-          <h2 class="text-[18px] md:text-[25px] font-bold text-gray-800 ">
+          <h2 class="text-[18px] md:text-[25px] font-bold text-primaryTitle ">
             Average: <span class="bg-orange-500 text-white px-[10px] rounded-[10px]  ">{{ percent }}%</span>
           </h2>
-          <p class="text-[18px] md:text-[25px] font-bold text-gray-800 ">
+          <p class="text-[18px] md:text-[25px] font-bold text-primaryTitle ">
             Remainding: <span class="bg-gray-500 text-white px-[10px] rounded-[10px]  ">{{ 100 - percent }}%</span>
           </p>
         </div>
@@ -154,21 +154,21 @@
           <div *ngIf="hoveredCook" [ngStyle]="{
         top: tooltipYCook + 'px',
         left: tooltipXCook + 'px'
-      }" class="absolute z-50 text-xs font-medium px-2 py-1 rounded bg-gray-800 text-white whitespace-nowrap pointer-events-none transition-all duration-300 opacity-0 scale-95 animate-fadeIn">
+      }" class="absolute z-50 text-xs font-medium px-2 py-1 rounded bg-primaryTitle text-white whitespace-nowrap pointer-events-none transition-all duration-300 opacity-0 scale-95 animate-fadeIn">
             Cook Door {{ hoveredCook === 'orange' ? percentCook : 100 - percentCook }}%
           </div>
         </div>
         <div class="text-center">
-          <h3 class="text-[18px] md:text-[25px] font-bold text-gray-800 mt-[15px] ">
+          <h3 class="text-[18px] md:text-[25px] font-bold text-primaryTitle mt-[15px] ">
             Cook Door
           </h3>
         </div>
         <hr class="my-[15px] bg-gray-500 w-full h-[2px]">
         <div class="flex justify-center gap-4 items-center ">
-          <h2 class="text-[18px] md:text-[25px] font-bold text-gray-800 ">
+          <h2 class="text-[18px] md:text-[25px] font-bold text-primaryTitle ">
             Average: <span class="bg-orange-500 text-white px-[10px] rounded-[10px]  ">{{ percentCook }}%</span>
           </h2>
-          <p class="text-[18px] md:text-[25px] font-bold text-gray-800 ">
+          <p class="text-[18px] md:text-[25px] font-bold text-primaryTitle ">
             Remainding: <span class="bg-gray-500 text-white px-[10px] rounded-[10px]  ">{{ 100 - percentCook }}%</span>
           </p>
         </div>
@@ -353,8 +353,8 @@
     [ngClass]="{ 'scale-100 opacity-100 w-[95%] md:w-[50%] ': showPopup, 'w-0 scale-95 opacity-0': !showPopup }">
     <!-- رأس النافذة -->
     <div class="relative mb-4">
-      <h3 class="text-xl font-semibold text-gray-800">Add New Rate</h3>
-      <i class="fas fa-times absolute top-0 right-0 bg-gray-300 px-2 py-1 text-gray-800 rounded-[10px] cursor-pointer text-lg"
+      <h3 class="text-xl font-semibold text-primaryTitle">Add New Rate</h3>
+      <i class="fas fa-times absolute top-0 right-0 bg-gray-300 px-2 py-1 text-primaryTitle rounded-[10px] cursor-pointer text-lg"
         (click)="closePopup()"></i>
     </div>
 
@@ -363,8 +363,8 @@
       <div class="mb-4 space-y-2 ">
         <label class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">The person present
           :</label>
-        <input type="text"
-          class="w-full h-12 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none ">
+        <input type="text" placeholder="Enter Name"
+          class="w-full h-12 border  text-textInput text-[18px] rounded-lg px-4 focus:outline-none ">
       </div>
 
       <div class="mb-4 space-y-2 ">
@@ -395,7 +395,7 @@
             </button>
           </div>
           <div
-            class="relative w-full py-2 border border-gray-500 text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+            class="relative w-full py-2 border  text-textInput text-[18px] rounded-lg px-4 focus:outline-none">
             <div (click)="toggleDropdownPowers()"
               class="w-full flex flex-wrap items-center gap-2 cursor-pointer bg-white">
               <span *ngFor="let item of selectedPowers"
@@ -424,7 +424,7 @@
         <label for="" class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">Locations :
         </label>
         <select
-          class="w-full h-12 border border-[#9CA3AF] text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
+          class="w-full h-12 border  text-gray-600 text-[18px] rounded-lg px-4 focus:outline-none">
           <option value="" disabled selected>Choose Location</option>
           <option value="">Cook Door</option>
           <option value="">Moods</option>
@@ -436,7 +436,7 @@
         <i class="fas fa-save mx-[10px] "></i> Save
       </button>
       <button (click)="closePopup()"
-        class="mx-[12px] text-[18px] md:text-[22px] font-medium bg-gray-300 text-gray-800 py-2 px-4 rounded-lg">
+        class="mx-[12px] text-[18px] md:text-[22px] font-medium bg-gray-300 text-primaryTitle py-2 px-4 rounded-lg">
         Close
       </button>
     </form>

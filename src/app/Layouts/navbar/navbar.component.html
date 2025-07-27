@@ -14,12 +14,12 @@
     <h1 class="text-[18px] md:text-[22px] font-bold text-gray-800 hidden md:block ">
       Welcome to Al Lulu Restaurant
     </h1>
-    <!-- <i  (click)="openSidebar()" class="fas fa-bars text-[22px] md:text-[22px] font-bold text-gray-800 md:hidden cursor-pointer " ></i> -->
+    <!-- <i  (click)="openSidebar()" class="fas fa-bars text-[22px] md:text-[22px] font-bold text-primaryTitle md:hidden cursor-pointer " ></i> -->
     <i (click)="openSidebar()"
-      class="fas text-[22px]  md:text-[22px] font-bold text-gray-800 md:hidden cursor-pointer transition-transform duration-300 ease-in-out"
+      class="fas text-[22px]  md:text-[22px] font-bold text-primaryTitle md:hidden cursor-pointer transition-transform duration-300 ease-in-out"
       [ngClass]="{
       'fa-times rotate-90 scale-110 text-red-600': isSidebarOpen,
-      'fa-bars rotate-0 scale-100 text-gray-800': !isSidebarOpen
+      'fa-bars rotate-0 scale-100 text-primaryTitle': !isSidebarOpen
     }"></i>
 
 
@@ -60,7 +60,7 @@
       <div *ngIf="notifOpen"
         [ngClass]="{ 'left-[-10px]': currentLang === 'ar' , 'right-[-10px]': currentLang === 'en' || currentLang === 'tr' }"
         class="absolute  mt-2 w-72 bg-white shadow-xl border border-gray-100 rounded-lg z-50">
-        <div class="px-4 py-3 border-b text-sm font-semibold text-gray-700 bg-gray-50 rounded-t-lg">
+        <div class="px-4 py-3 border-b text-sm font-semibold text-textInput bg-gray-50 rounded-t-lg">
           الإشعارات
         </div>
         <ul class="max-h-60 overflow-y-auto divide-y divide-gray-100">
