@@ -19,6 +19,16 @@ export class QuestionService {
     return this.http.post(`${environment.apiUrl}/auth/createQuestion`, body);
   }
 
+  // Update a question
+  updateQuestion(mainid: number , questionid : number, body: any) {
+    return this.http.patch(`${environment.apiUrl}/auth/updateSingleQuestion/${mainid}/${questionid}`, body);
+  }
+
+  // Delete a question
+  deleteQuestion(mainid: number , questionid : number) {
+    return this.http.delete(`${environment.apiUrl}/auth/deleteSingleQuestion/${mainid}/${questionid}`);
+  }
+
   // Create Score
   createScore(body: any) {
     return this.http.post(`${environment.apiUrl}/auth/createEvaluation`, body);

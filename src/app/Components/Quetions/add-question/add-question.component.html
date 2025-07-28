@@ -19,7 +19,11 @@
       class="text-black bg-white text-[20px] shadow-lg font-medium rounded-md p-4 flex justify-between items-center  ">
       <div class="">
         <h3>{{ item.name }}</h3>
-        <p> {{ item.value }} </p>
+        <p *ngIf="item.name === 'Main Qroup'" > {{ mainGroupCount()  }} </p>
+        <p *ngIf="item.name === 'SubGroup'" > {{ subGroupCount()  }} </p>
+        <p *ngIf="item.name === 'Questions'" > {{ totalQuestionCount()  }} </p>
+        <!--
+' -->
       </div>
       <div>
         <div class="w-fit">
@@ -39,7 +43,7 @@
     <div class="my-[20px]" *ngFor="let group of allQuestions">
       <!-- Main Group -->
       <h3 class="text-[18px] underline md:text-[25px] font-bold text-primaryTitle">
-        - {{ group.name }} ({{ getTotalQuestions(group.subGroups) }} Questions)
+        - {{ group.name }} ({{getTotalQuestionsForMainGroup(group.subGroups)  }} Questions)
       </h3>
 
       <!-- Sub Groups -->
@@ -50,30 +54,34 @@
           </p>
           <!-- Number of questions -->
           <p class="text-[15px] md:text-[20px] font-medium text-textInput">
-            ({{sub.questions?.length > 0 ? sub.questions[0]?.questionText?.length: 0}}Questions)
+            ({{getTotalQuestionsForSubGroup(sub)}}Questions)
             <i class="fas fa-question mx-[10px] bg-blue-800 text-white rounded-[10px] p-2"></i>
           </p>
         </div>
 
         <!-- Questions -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div *ngFor="let question of sub.questions?.[0]?.questionText"
-            class="text-black bg-white text-[20px] shadow-lg font-medium rounded-lg p-4 transition-all duration-200">
-            <h4 class="my-[10px] text-[15px] md:text-[20px] font-medium text-gray-600">
-              {{ question.ar }}
-            </h4>
-            <div class="flex gap-1 text-[18px] md:text-[20px] items-center">
-              <div class="bg-black hover:bg-primaryTitle cursor-pointer text-white rounded-[8px] px-4 py-1">
-                <i class="fas fa-check text-gold"></i>
+          <ng-container *ngFor="let questionss of sub.questions">
+            <div *ngFor="let question of questionss.questions"
+              class="text-black bg-white text-[20px] shadow-lg font-medium rounded-lg p-4 transition-all duration-200">
+              <h4 class="my-[10px] text-[15px] md:text-[20px] font-medium text-gray-600">
+                {{ question.questionText.ar }}
+              </h4>
+              <div class="flex gap-1 text-[18px] md:text-[20px] items-center">
+                <!-- <div class="bg-black hover:bg-primaryTitle cursor-pointer text-white rounded-[8px] px-4 py-1">
+                  <i class="fas fa-check text-gold"></i>
+                </div> -->
+                <button (click)="editQuestion(question.questionText, question.evaluation, questionss._id, question._id)"
+                  class="btnedit mx-[5px]" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button (click)="deletQuestion(questionss._id, question._id)"
+                class="btndelete" title="Delete">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
               </div>
-              <button class="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-700 mx-[5px]" title="Edit">
-                <i class="fas fa-edit"></i>
-              </button>
-              <button class="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-700" title="Delete">
-                <i class="fas fa-trash-alt"></i>
-              </button>
             </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -108,6 +116,50 @@
 
     <!-- النموذج -->
     <form [formGroup]="questionForm" (ngSubmit)="createQuestions()">
+
+      <!-- Dynamic Questions -->
+      <div formArrayName="questionText">
+        <div *ngFor="let q of questionText.controls; let i = index" [formGroupName]="i"
+          class="border p-4 mb-4 rounded-lg bg-gray-50 relative">
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+            <div>
+              <label class="block text-textInput font-medium mb-1">Arabic:</label>
+              <input type="text" formControlName="ar"
+                class="w-full outline-none border rounded-lg px-4 py-2 text-textInput" placeholder="Arabic" />
+            </div>
+
+            <div>
+              <label class="block text-textInput font-medium mb-1">English:</label>
+              <input type="text" formControlName="en"
+                class="w-full outline-none border rounded-lg px-4 py-2 text-textInput" placeholder="English" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-textInput font-medium mb-1">Status:</label>
+            <select formControlName="evaluation" class="w-full outline-none border rounded-lg px-4 py-2 text-textInput">
+              <option value="" disabled>Select Evaluation</option>
+              <option *ngFor="let item of allScores" [value]="item._id">{{ item.title }}</option>
+            </select>
+          </div>
+
+          <button type="button" (click)="removeQuestion(i)"
+            class="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 rounded-full w-8 h-8 flex items-center justify-center">
+            <i class="fas fa-trash-alt text-sm"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Add Question -->
+      <div class="text-center mb-6">
+        <button type="button" (click)="addQuestion()"
+          class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg text-lg font-medium">
+          <i class="fas fa-plus mr-2"></i> Add Question
+        </button>
+      </div>
+
+      <!-- Main & Sub Group -->
       <div class="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Main Group -->
         <div>
@@ -130,46 +182,18 @@
         </div>
       </div>
 
-      <!-- Dynamic Questions -->
-      <div formArrayName="questionText">
-        <div *ngFor="let q of questionText.controls; let i = index" [formGroupName]="i"
-          class="border p-4 mb-4 rounded-lg bg-gray-50 relative">
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-            <div>
-              <label class="block text-textInput font-medium mb-1">Arabic:</label>
-              <input type="text" formControlName="ar"
-                class="w-full outline-none border rounded-lg px-4 py-2 text-textInput" placeholder="Arabic" />
-            </div>
-
-            <div>
-              <label class="block text-textInput font-medium mb-1">English:</label>
-              <input type="text" formControlName="en"
-                class="w-full outline-none border rounded-lg px-4 py-2 text-textInput" placeholder="English" />
-            </div>
-
+      <!-- Status Checkbox -->
+      <div class="mb-4 space-y-2">
+        <label class="text-[18px] md:text-[20px] font-medium text-[#374151] flex items-center gap-2">
+          Status :
+          <div class="relative inline-block w-12 h-6">
+            <input type="checkbox" formControlName="isActive" name="isActive" class="peer opacity-0 w-0 h-0" />
+            <span
+              class="absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition peer-checked:bg-green-500"></span>
+            <span
+              class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition peer-checked:translate-x-6"></span>
           </div>
-
-          <div>
-            <label class="block text-textInput font-medium mb-1">Status:</label>
-            <select formControlName="evaluation" class="w-full outline-none border rounded-lg px-4 py-2 text-textInput">
-              <option  value="{{ item._id }}" *ngFor="let item of allScores" >{{ item.title }}</option>
-            </select>
-          </div>
-
-          <button type="button" (click)="removeQuestion(i)"
-            class="absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 rounded-full w-8 h-8 flex items-center justify-center">
-            <i class="fas fa-trash-alt text-sm"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- Add Question -->
-      <div class="text-center mb-6">
-        <button type="button" (click)="addQuestion()"
-          class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg text-lg font-medium">
-          <i class="fas fa-plus mr-2"></i> Add Question
-        </button>
+        </label>
       </div>
 
       <!-- Submit & Close -->
@@ -183,7 +207,79 @@
           Close
         </button>
       </div>
+
     </form>
+
+
+  </div>
+</div>
+
+
+
+<!-- Edit Popup -->
+<div class="fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500"
+  [ngClass]="{ 'opacity-100 pointer-events-auto': editPopup, 'opacity-0 pointer-events-none': !editPopup }">
+
+  <!-- خلفية سوداء شفافة -->
+  <div (click)="editclosePopup()" class="absolute inset-0 bg-gray-900 transition-opacity duration-500"
+    [ngClass]="{ 'opacity-50': editPopup, 'opacity-0': !editPopup }"></div>
+
+  <!-- نافذة البوب أب -->
+  <div class="bg-white rounded-xl shadow-xl p-6 w-[95%] md:w-[70%] transition-all duration-500 transform ease-in-out
+            overflow-y-auto max-h-[90vh] scrollbar-hide"
+    [ngClass]="{ 'scale-100 opacity-100': editPopup, 'scale-95 opacity-0': !editPopup }">
+
+
+    <!-- رأس -->
+    <div class="relative mb-4">
+      <h3 class="text-xl font-bold text-primaryTitle">Add New Questions</h3>
+      <i class="fas fa-times absolute top-0 right-0 bg-gray-300 px-2 py-1 text-primaryTitle rounded cursor-pointer"
+        (click)="editclosePopup()"></i>
+    </div>
+
+    <!-- النموذج -->
+    <form [formGroup]="editForm" (ngSubmit)="updateQuestion()">
+      <!-- Dynamic Questions -->
+      <div>
+        <div class="border p-4 mb-4 rounded-lg bg-gray-50 relative">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3" formGroupName="questionText">
+            <div>
+              <label class="block text-textInput font-medium mb-1">Arabic:</label>
+              <input type="text" formControlName="ar"
+                class="w-full outline-none border rounded-lg px-4 py-2 text-textInput" placeholder="Arabic" />
+            </div>
+
+            <div>
+              <label class="block text-textInput font-medium mb-1">English:</label>
+              <input type="text" formControlName="en"
+                class="w-full outline-none border rounded-lg px-4 py-2 text-textInput" placeholder="English" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-textInput font-medium mb-1">Score:</label>
+            <select formControlName="evaluation" class="w-full outline-none border rounded-lg px-4 py-2 text-textInput">
+              <option value="" disabled>Select Evaluation</option>
+              <option *ngFor="let item of allScores" [value]="item._id">{{ item.title }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit & Close -->
+      <div class="flex gap-4">
+        <button type="submit" class="bg-primary text-white px-6 py-2 text-lg rounded-lg hover:bg-gold-700">
+          <i class="fas fa-save mr-2"></i> Edit
+        </button>
+
+        <button type="button" (click)="closePopup()"
+          class="bg-gray-300 text-primaryTitle px-6 py-2 text-lg rounded-lg hover:bg-gray-400">
+          Close
+        </button>
+      </div>
+    </form>
+
+
 
   </div>
 </div>
