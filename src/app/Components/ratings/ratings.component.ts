@@ -1,16 +1,40 @@
-import { Component } from '@angular/core';
+import { RatesiteService } from 'src/app/Core/Services/Home/ratesite.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-ratings',
   templateUrl: './ratings.component.html',
   styleUrls: ['./ratings.component.css']
 })
-export class RatingsComponent {
+export class RatingsComponent implements OnInit {
 
   // pagination
 
   totalPages = 15;
   currentPage = 1;
+
+  constructor(private RatesiteService : RatesiteService) {
+
+  }
+
+  ngOnInit(): void {
+    this.getAllRate();
+  }
+
+  allRate : any
+
+  getAllRate(){
+    this.RatesiteService.getRateing().subscribe({
+      next : (res : any) => {
+        console.log(res);
+        this.allRate = res.data;
+      },
+      error : (err) => {
+        console.log(err);
+      }
+    })
+  }
+
 
   getDisplayedPages(): number[] {
     const visiblePages = 5;

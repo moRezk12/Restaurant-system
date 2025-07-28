@@ -48,7 +48,7 @@ export class AddQuestionComponent implements OnInit {
   //   { ar: '', en: '', tr: '', active: true }
   // ];
 
-    constructor(private fb: FormBuilder , private mainGroup : MaingroupService,
+    constructor(private fb: FormBuilder , private mainGroup : MaingroupService, 
       private questionService : QuestionService
     ) {}
 

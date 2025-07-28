@@ -1,19 +1,60 @@
-import { Component , ViewChild , HostListener, ElementRef } from '@angular/core';
+import { SubgroupService } from 'src/app/Core/Services/Groups/subGroup/subgroup.service';
+import { Component , ViewChild , HostListener, ElementRef, OnInit } from '@angular/core';
+import { SiteService } from 'src/app/Core/Services/Sites/site.service';
+import { RatesiteService } from 'src/app/Core/Services/Home/ratesite.service';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  constructor(private eRef: ElementRef) {}
+  rateForm! : FormGroup;
+  constructor(private eRef: ElementRef ,
+    private fb: FormBuilder,
+    private rateOfSiteService : RatesiteService ,
+    private SubgroupService : SubgroupService ,
+    private branchService : SiteService ) {}
 
+
+    ngOnInit(): void {
+      this.getSubGroups();
+      this.getBranches();
+      this.rateForm = this.fb.group({
+        managerName: ['', Validators.required],
+        subGroups: this.fb.array([], Validators.required),
+        locationId: ['', Validators.required]
+      });
+
+
+    }
+
+
+    // get all sub groups
+    allOptionsPowers: any;
+    getSubGroups() {
+      return this.SubgroupService.getSubGroups().subscribe({
+        next : (res : any) => {
+          console.log(res);
+          this.allOptionsPowers = res.subGroups;
+          console.log(this.allOptionsPowers);
+
+        },
+        error : (err) => {
+          console.log(err);
+        }
+
+      });
+    }
+
+    // Powers
+    selectedPowers: any;
+
+    dropdownOpenPowers = false;
   @ViewChild('powersBox', { static: false }) powersBox!: ElementRef;
-
-
-
-  dropdownOpenPowers = false;
 
   @HostListener('document:click', ['$event.target'])
   handleClickOutside(target: HTMLElement) {
@@ -22,34 +63,99 @@ export class HomeComponent {
     }
   }
 
+  toggleDropdownPowers() {
+    this.dropdownOpenPowers = !this.dropdownOpenPowers;
+  }
+
+  // تحقق هل العنصر مختار
+  isPowerSelected(option: any): boolean {
+    return this.selectedPowers.some((p:any) => p._id === option._id);
+  }
+
+  // تحديد عنصر
+  selectPower(option: any) {
+    if (!this.isPowerSelected(option)) {
+      this.selectedPowers.push(option);
+      this.addToFormArray(option._id);
+    }
+  }
+
+  // إزالة عنصر
+  removePower(option: any) {
+    this.selectedPowers = this.selectedPowers.filter((p:any) => p._id !== option._id);
+    this.removeFromFormArray(option._id);
+  }
+
+  // تحديد الكل
+  selectAll() {
+    this.selectedPowers = [...this.allOptionsPowers];
+    const formArray = this.rateForm.get('subGroups') as FormArray;
+    formArray.clear();
+    this.selectedPowers.forEach((opt:any) => formArray.push(this.fb.control(opt._id)));
+  }
+
+  // إزالة الكل
+  deleteAll() {
+    this.selectedPowers = [];
+    const formArray = this.rateForm.get('subGroups') as FormArray;
+    formArray.clear();
+  }
+
+  // إضافة عنصر في الفورم
+  private addToFormArray(id: string) {
+    const formArray = this.rateForm.get('subGroups') as FormArray;
+    formArray.push(this.fb.control(id));
+  }
+
+  // إزالة عنصر من الفورم
+  private removeFromFormArray(id: string) {
+    const formArray = this.rateForm.get('subGroups') as FormArray;
+    const index = formArray.controls.findIndex(control => control.value === id);
+    if (index !== -1) {
+      formArray.removeAt(index);
+    }
+  }
 
 
-    // Powers
-    allOptionsPowers = ['Users', 'Reports', 'Objections', 'Rating', 'Questions'];
-    selectedPowers: string[] = [];
-
-    selectAll(){
-      this.selectedPowers = this.allOptionsPowers.slice();
+  // get all branches
+  allbranchs : any;
+  getBranches() {
+    return this.branchService.getBranches().subscribe({
+      next : (res : any) => {
+        console.log(res);
+        this.allbranchs = res.message.branches;
+      },
+      error : (err) => {
+        console.log(err);
+      } });
     }
 
-    deleteAll(){
-      this.selectedPowers = [];
+
+
+   // إرسال الفورم
+  createRate() {
+    if (this.rateForm.invalid) {
+      this.rateForm.markAllAsTouched();
+      return;
     }
 
-    toggleDropdownPowers() {
-      this.dropdownOpenPowers = !this.dropdownOpenPowers;
-    }
-    selectPower(option: string) {
-      if (!this.selectedPowers.includes(option)) {
-        this.selectedPowers.push(option);
+    const formData = {
+      ...this.rateForm.value,
+      subGroups: this.rateForm.value.subGroups // IDs only
+    };
+
+    this.rateOfSiteService.createMode(formData).subscribe({
+      next: (res: any) => {
+        console.log('تم الحفظ:', res);
+        this.swalSuccess(res.message);
+      },
+      error: (err) => {
+        console.error('خطأ أثناء الحفظ:', err);
+        this.swalError(err.error.message);
       }
-    }
-    removePower(option: string) {
-      this.selectedPowers = this.selectedPowers.filter(o => o !== option);
-    }
-    isPowerSelected(option: string): boolean {
-      return this.selectedPowers.includes(option);
-    }
+    });
+  }
+
 
   grid = [
     {name: 'Report', value: 7 , icon : 'fas fa-chart-bar  ', bg: "#F0EBEB" , color: "#F97316"},
@@ -138,5 +244,38 @@ export class HomeComponent {
     const angle = (percent / 100) * 180 - 90;
     return `translate(-50%, -100%) rotate(${angle}deg)`;
   }
+
+
+
+  swalSuccess( message : any ) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: message || 'Check your email '  ,
+          confirmButtonColor: '#28a745',
+          confirmButtonText: 'OK',
+          timerProgressBar: true,
+          customClass: {
+            confirmButton: 'mySuccess'
+          }
+        }).then(() => {
+          this.getBranches();
+
+        })
+      }
+
+      swalError( message : any ) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: message || 'An error occurred'  ,
+          confirmButtonColor: '#dc3545',
+          confirmButtonText: 'OK',
+          timerProgressBar: true,
+          customClass: {
+            confirmButton: 'myError'
+          }
+        })
+      }
 
 }

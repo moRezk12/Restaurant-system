@@ -11,7 +11,7 @@ export class SubgroupService {
 
   // Get main groups
   getSubGroups() {
-    return this.http.get(`${environment.apiUrl}/auth/getSubGroupsWithSubGroups`);
+    return this.http.get(`${environment.apiUrl}/auth/getMySubGroups`);
   }
 
   // Get Sub group
